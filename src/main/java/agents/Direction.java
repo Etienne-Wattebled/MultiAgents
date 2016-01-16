@@ -1,7 +1,5 @@
 package agents;
 
-import java.lang.String;
-
 public enum Direction {
 	NORD,
 	SUD,
@@ -11,4 +9,10 @@ public enum Direction {
 	NORD_EST,
 	SUD_EST,
 	SUD_OUEST;
+	
+	public static Direction getRandomDirection() {
+		Direction directions[] = Direction.values();
+		int nbDirections = directions.length;
+		return directions[(int) (nbDirections*Math.random())];
+	}
 }
