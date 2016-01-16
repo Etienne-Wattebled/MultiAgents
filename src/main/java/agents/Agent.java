@@ -1,5 +1,7 @@
 package agents;
 
+import environnements.Environnement;
+
 public abstract class Agent {
 	private int posX;
 	private int posY;
@@ -35,6 +37,14 @@ public abstract class Agent {
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+	
+	public Environnement getEnvironnement() {
+		return environnement;
+	}
+	
+	public void setEnvironnement(Environnement environnement) {
+		this.environnement = environnement;
 	}
 	
 	abstract public void doIt();
