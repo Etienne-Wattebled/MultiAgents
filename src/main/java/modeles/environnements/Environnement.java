@@ -1,8 +1,8 @@
-package environnements;
+package modeles.environnements;
 
 import java.util.Observable;
 
-import agents.Agent;
+import modeles.agents.Agent;
 
 public class Environnement extends Observable{
 	private int longueur;

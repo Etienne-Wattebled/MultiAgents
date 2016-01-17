@@ -1,6 +1,6 @@
-package agents;
+package modeles.agents;
 
-import environnements.Environnement;
+import modeles.environnements.Environnement;
 
 public abstract class Agent {
 	private int posX;

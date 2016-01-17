@@ -1,6 +1,6 @@
-package agents;
+package modeles.agents;
 
-import environnements.Environnement;
+import modeles.environnements.Environnement;
 
 public class Bille extends Agent {
 	public Bille(int posX, int posY, Direction direction, Environnement environnement) {
