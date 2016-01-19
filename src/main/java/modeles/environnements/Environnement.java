@@ -2,6 +2,7 @@ package modeles.environnements;
 
 import java.util.Observable;
 
+import vues.environnements.Commande;
 import modeles.agents.Agent;
 
 public class Environnement extends Observable{
@@ -14,12 +15,8 @@ public class Environnement extends Observable{
 		this.hauteur = hauteur;
 		this.longueur = longueur;
 		this.grille = new Agent[longueur][hauteur];
-		this.initialiser();
 	}
-
-	private void initialiser() {
-	}
-
+	
 	public boolean estVide(int x, int y) {
 		return (grille[x][y] == null);
 	}
@@ -48,7 +45,7 @@ public class Environnement extends Observable{
 	@Deprecated
 	public void mettreAgent(Agent agent) {
 		grille[agent.getPosX()][agent.getPosY()] = agent;
-		notifyObservers();
+		notifyObservers(new Object[] { Commande.METTRE_AGENT,agent });
 	}
 	
 	/**
@@ -57,8 +54,18 @@ public class Environnement extends Observable{
 	 * Risque : problèmes de cohérence de données.
 	 */
 	@Deprecated
-	public void supprimerAgent(Agent agent) {
+	public void enleverAgent(Agent agent) {
 		grille[agent.getPosX()][agent.getPosY()] = null;
-		notifyObservers();
+		notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
+	}
+	
+	public boolean xEstValide(int x) {
+		return x >= 0 && x < longueur;
+	}
+	public boolean yEstValide(int y) {
+		return y >= 0 && y < hauteur;
+	}
+	public boolean estValide(int x, int y) {
+		return xEstValide(x) && yEstValide(y);
 	}
 }

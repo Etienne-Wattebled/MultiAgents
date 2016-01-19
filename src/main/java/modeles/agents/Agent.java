@@ -60,15 +60,26 @@ public abstract class Agent {
 		this.direction = direction;
 	}
 	
+	/**
+	 * Set a random direction.
+	 */
+	public void setDirection() {
+		this.direction = Direction.getRandomDirection();
+	}
+	
 	public Environnement getEnvironnement() {
 		return environnement;
 	}
 	
 	public void seDeplacer(int x, int y) {
-		this.environnement.supprimerAgent(this);
+		if (environnement != null) {
+			this.environnement.enleverAgent(this);
+		}
 		this.posX = x;
 		this.posY = y;
-		this.environnement.mettreAgent(this);
+		if (environnement != null) {
+			this.environnement.mettreAgent(this);
+		}
 	}
 	
 	abstract public void doIt();
