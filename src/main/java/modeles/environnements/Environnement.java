@@ -34,32 +34,12 @@ public class Environnement extends Observable{
 	public Agent[][] getGrille() { return grille; }
 	
 	/**
-	 * Retourne vrai si la case est vide.
-	 * Ne vérifie pas si x et y sont valides.
-	 * @param x coordonnée x
-	 * @param y coordonnée y
-	 * @return vrai si la case est vide
-	 */
-	public boolean estVide(int x, int y) { return grille[x][y] == null; }
-	/**
-	 * 
-	 * @param x coordonnée x
-	 * @return vrai si x est une coordonnée valide
-	 */
-	public boolean xEstValide(int x) {	return torique || (x >= 0 && x < longueur); }
-	/**
-	 * 
-	 * @param y coordonnée y
-	 * @return vrai si y est une coordonnée valide
-	 */
-	public boolean yEstValide(int y) { return torique || (y >= 0 && y < hauteur); }
-	/**
 	 * 
 	 * @param x coordonnée x
 	 * @param y coordonnée y
 	 * @return vrai s'il existe une case aux coordonnées x et y
 	 */
-	public boolean estValide(int x, int y) { return xEstValide(x) && yEstValide(y); }
+	public boolean existeCase(int x, int y) { return torique || (x >= 0 && y >= 0 && x < longueur && y < hauteur); }
 	public boolean estTorique() { return torique; }
 	
 	/**
@@ -73,7 +53,7 @@ public class Environnement extends Observable{
 			x = getX(x);
 			y = getY(y);
 		}
-		return !estValide(x,y) || !estVide(x,y);
+		return !existeCase(x,y) || grille[x][y] != null;
 	}
 	
 	/**
@@ -89,7 +69,7 @@ public class Environnement extends Observable{
 			agent.setPosX(getX(agent.getPosX()));
 			agent.setPosY(getY(agent.getPosY()));
 		}
-		if (estValide(agent.getPosX(),agent.getPosY())) {	
+		if (existeCase(agent.getPosX(),agent.getPosY())) {	
 			grille[agent.getPosX()][agent.getPosY()] = agent;
 			notifyObservers(new Object[] { Commande.METTRE_AGENT,agent });
 		}
@@ -103,7 +83,7 @@ public class Environnement extends Observable{
 	 */
 	@Deprecated
 	public void enleverAgent(Agent agent) {
-		if (estValide(agent.getPosX(),agent.getPosY())) {
+		if (existeCase(agent.getPosX(),agent.getPosY())) {
 			grille[agent.getPosX()][agent.getPosY()] = null;
 			notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
 		}
