@@ -6,6 +6,9 @@ public class Bille extends Agent {
 	public Bille(int posX, int posY, Direction direction, Environnement environnement) {
 		super(posX,posY,direction, environnement);
 	}
+	public Bille(Environnement environnement) {
+		super(environnement);
+	}
 	public void seDeplacer() {
 		int tab[] = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
 		int xF = tab[0], yF = tab[1];

@@ -17,6 +17,10 @@ public class Environnement {
 		this.grille = new Agent[longueur][hauteur];
 		this.torique = false;
 	}
+	public Environnement(int longueur, int hauteur, boolean torique) {
+		this(longueur,hauteur);
+		this.torique = torique;
+	}
 	
 	// Convertir torique => coordonnées tableau
 	private int getX(int xTorique) {

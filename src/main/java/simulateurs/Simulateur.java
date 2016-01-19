@@ -1,5 +1,6 @@
 package simulateurs;
 import modeles.agents.Agent;
+import modeles.agents.Bille;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
 
@@ -13,15 +14,16 @@ public class Simulateur extends Observable {
 	private int pauseMS;
 	private boolean continuer;
 	
-	public Simulateur(int longueur, int hauteur, int tailleCellule, int pauseMS) {
-		this.environnement = new Environnement(longueur,hauteur);
+	public Simulateur(int longueur, int hauteur, int tailleCellule, int pauseMS, boolean torique) {
+		this.environnement = new Environnement(longueur,hauteur,torique);
 		this.agents = new LinkedList<Agent>();
 		this.pauseMS = pauseMS;
 		this.continuer = true;
 		new VueSimulateur(this, tailleCellule);
+		ajouterAgent(new Bille(environnement));
 	}
 	public Simulateur(int longueur, int hauteur, int tailleCellule) {
-		this(longueur,hauteur,500, tailleCellule);
+		this(longueur,hauteur,500, tailleCellule,false);
 	}
 	
 	public Environnement getEnvironnement() {
@@ -33,6 +35,10 @@ public class Simulateur extends Observable {
 	}
 	public int getHauteur() {
 		return environnement.getHauteur();
+	}
+	
+	public void setPauseMS(int pause) {
+		this.pauseMS = pause;
 	}
 	
 	public void lancerSimulation() {
@@ -56,6 +62,7 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		new Simulateur(50,50,10);
+		Simulateur s = new Simulateur(50,50,10,100,true);
+		s.lancerSimulation();
 	}
 }

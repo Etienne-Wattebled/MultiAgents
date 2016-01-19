@@ -18,6 +18,8 @@ public class VueSimulateur extends JFrame {
 		
 		this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		
+		simulateur.addObserver(vueEnvironnement);
+		
 		this.add(vueEnvironnement);
 		this.add(vueMenuEnvironnement);
 		this.setSize(new Dimension(tailleCellule*simulateur.getLongueur(), tailleCellule*simulateur.getHauteur()));
