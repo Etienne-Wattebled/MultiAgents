@@ -2,7 +2,6 @@ package modeles.environnements;
 
 import java.util.Observable;
 
-import vues.environnements.Commande;
 import modeles.agents.Agent;
 
 public class Environnement {
