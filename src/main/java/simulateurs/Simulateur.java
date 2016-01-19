@@ -11,11 +11,15 @@ public class Simulateur {
 	private int pauseMS;
 	private boolean continuer;
 	
-	public Simulateur(int longueur, int hauteur) {
+	
+	public Simulateur(int longueur, int hauteur, int pauseMS) {
 		this.environnement = new Environnement(longueur,hauteur);
 		this.agents = new LinkedList<Agent>();
-		this.pauseMS = 500;
+		this.pauseMS = pauseMS;
 		this.continuer = true;
+	}
+	public Simulateur(int longueur, int hauteur) {
+		this(longueur,hauteur,500);
 	}
 	public void lancerSimulation() {
 		while (continuer && agents.size() > 0) {
