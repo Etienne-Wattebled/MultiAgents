@@ -46,7 +46,7 @@ public enum Direction {
 		return directionOpposee;
 	}
 	// [x,y]
-	public static int[] calculerNouvellesCoordonnees(int x, int y, Direction direction) {
+	public static int[] calculerNouvellesCoordonnees(Direction direction, int x, int y) {
 		int tab[] = new int[2];
 		tab[0] = x;
 		tab[1] = y;
