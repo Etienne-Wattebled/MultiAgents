@@ -82,5 +82,26 @@ public abstract class Agent {
 		}
 	}
 	
+	@Deprecated
+	/**
+	 * Méthode utilisée par l'environnement lorsqu'elle sait ce qu'elle fait.
+	 * Ne pas utiliser cette méthode.
+	 * CF: se déplacer
+	 */
+	public void setPosX(int x) {
+		this.posX = x;
+	}
+	
+	@Deprecated
+	/**
+	 * Méthode utilisée par l'environnement lorsqu'elle sait ce qu'elle fait.
+	 * Ne pas utiliser cette méthode.
+	 * CF: se déplacer
+	 * @param y
+	 */
+	public void setPosY(int y) {
+		this.posY = y;
+	}
+	
 	abstract public void doIt();
 }

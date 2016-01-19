@@ -8,21 +8,31 @@ import modeles.agents.Agent;
 public class Environnement extends Observable{
 	private int longueur;
 	private int hauteur;
+	private boolean torique;
 	
 	private Agent[][] grille;
 
-	public Environnement(int hauteur, int longueur) {
+	public Environnement(int longueur, int hauteur) {
 		this.hauteur = hauteur;
 		this.longueur = longueur;
 		this.grille = new Agent[longueur][hauteur];
+		this.torique = false;
 	}
 	
-	public boolean estVide(int x, int y) {
-		return (grille[x][y] == null);
+	// Convertir torique => coordonnées tableau
+	private int getX(int xTorique) {
+		if (xTorique >= 0) {
+			return xTorique%longueur;
+		} else {
+			return longueur - Math.abs(xTorique);
+		}
 	}
-
-	public Agent getAgent(int x, int y) {
-		return grille[x][y];
+	private int getY(int yTorique) {
+		if (yTorique >= 0) {
+			return yTorique%hauteur;
+		} else {
+			return hauteur - Math.abs(yTorique);
+		}
 	}
 	
 	public int getLongueur() {
@@ -44,8 +54,14 @@ public class Environnement extends Observable{
 	 */
 	@Deprecated
 	public void mettreAgent(Agent agent) {
-		grille[agent.getPosX()][agent.getPosY()] = agent;
-		notifyObservers(new Object[] { Commande.METTRE_AGENT,agent });
+		if (torique) {
+			agent.setPosX(getX(agent.getPosX()));
+			agent.setPosY(getY(agent.getPosY()));
+		}
+		if (estValide(agent.getPosX(),agent.getPosY())) {	
+			grille[agent.getPosX()][agent.getPosY()] = agent;
+			notifyObservers(new Object[] { Commande.METTRE_AGENT,agent });
+		}
 	}
 	
 	/**
@@ -55,17 +71,30 @@ public class Environnement extends Observable{
 	 */
 	@Deprecated
 	public void enleverAgent(Agent agent) {
-		grille[agent.getPosX()][agent.getPosY()] = null;
-		notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
+		if (estValide(agent.getPosX(),agent.getPosY())) {
+			grille[agent.getPosX()][agent.getPosY()] = null;
+			notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
+		}
 	}
 	
 	public boolean xEstValide(int x) {
-		return x >= 0 && x < longueur;
+		if (torique) {
+			return true;
+		} else {
+			return x >= 0 && x < longueur;
+		}
 	}
 	public boolean yEstValide(int y) {
-		return y >= 0 && y < hauteur;
+		if (torique) {
+			return true;
+		} else {
+			return y >= 0 && y < hauteur;
+		}
 	}
 	public boolean estValide(int x, int y) {
 		return xEstValide(x) && yEstValide(y);
+	}
+	public boolean estTorique() {
+		return torique;
 	}
 }
