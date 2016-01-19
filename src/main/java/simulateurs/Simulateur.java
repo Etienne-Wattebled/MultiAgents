@@ -30,4 +30,8 @@ public class Simulateur {
 			}
 		}
 	}
+	
+	public boolean arreterSimulation(){
+		return continuer = false;
+	}
 }
