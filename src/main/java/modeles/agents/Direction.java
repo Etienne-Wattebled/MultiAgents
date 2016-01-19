@@ -45,4 +45,27 @@ public enum Direction {
 		}
 		return directionOpposee;
 	}
+	// [x,y]
+	public static int[] calculerNouvellesCoordonnees(int x, int y, Direction direction) {
+		int tab[] = new int[2];
+		tab[0] = x;
+		tab[1] = y;
+		// NORD
+		if ((direction == NORD) || (direction == NORD_EST) || (direction == NORD_OUEST)) {
+			tab[1] = tab[1]-1;
+		}
+		// SUD
+		if ((direction == SUD) || (direction == SUD_OUEST) || (direction == SUD_EST)) {
+			tab[1] = tab[1]+1;
+		}
+		// OUEST
+		if ((direction == OUEST) || (direction == NORD_OUEST) || (direction == NORD_EST)) {
+			tab[0] = tab[0]-1;
+		}
+		// EST
+		if ((direction == EST) || (direction == NORD_EST) || (direction == SUD_EST)) {
+			tab[0] = tab[0]+1;
+		}
+		return tab;
+	}
 }

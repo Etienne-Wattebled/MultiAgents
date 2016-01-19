@@ -7,7 +7,11 @@ public class Bille extends Agent {
 		super(posX,posY,direction, environnement);
 	}
 	public void seDeplacer() {
-		
+		int xF = getPosX();
+		int yF = getPosY();
+		switch (getDirection()) {
+			
+		}
 	}
 	public void doIt() {
 		
