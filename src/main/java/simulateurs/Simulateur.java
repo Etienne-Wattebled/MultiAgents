@@ -18,14 +18,25 @@ public class Simulateur extends Observable {
 		this.agents = new LinkedList<Agent>();
 		this.pauseMS = pauseMS;
 		this.continuer = true;
-		new VueSimulateur(longueur, hauteur,tailleCellule, this);
+		new VueSimulateur(this, tailleCellule);
 	}
 	public Simulateur(int longueur, int hauteur, int tailleCellule) {
 		this(longueur,hauteur,500, tailleCellule);
 	}
 	
+	public Environnement getEnvironnement() {
+		return environnement;
+	}
+	
+	public int getLongueur() {
+		return environnement.getLongueur();
+	}
+	public int getHauteur() {
+		return environnement.getHauteur();
+	}
+	
 	public void lancerSimulation() {
-		while (continuer && agents.size() > 0) {
+		while (continuer) {
 			Collections.shuffle(agents);
 			for (Agent a : agents) {
 				a.doIt();
@@ -43,5 +54,8 @@ public class Simulateur extends Observable {
 	}
 	public boolean arreterSimulation(){
 		return continuer = false;
+	}
+	public static void main(String args[]) {
+		new Simulateur(50,50,10);
 	}
 }

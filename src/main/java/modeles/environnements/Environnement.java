@@ -28,6 +28,11 @@ public class Environnement {
 		else { return hauteur - Math.abs(yTorique); }
 	}
 	
+	public Agent getAgent(int x, int y) { 
+		if (existeCase(x,y)) { return grille[x][y]; }
+		return null;
+	}
+	
 	public int getLongueur() { return longueur; }
 	public int getHauteur() { return hauteur; }
 	public Agent[][] getGrille() { return grille; }
