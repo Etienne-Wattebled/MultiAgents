@@ -42,6 +42,7 @@ public class Environnement extends Observable{
 	 * Ne pas utiliser cette méthode. 
 	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace ou lors de la valorisation de l'Environnement.
 	 * Risque : problèmes de cohérence de données.
+	 * CF: se déplacer dans l'Agent
 	 * @param agent
 	 */
 	@Deprecated
@@ -60,6 +61,7 @@ public class Environnement extends Observable{
 	 * Ne pas utiliser cette méthode. 
 	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace.
 	 * Risque : problèmes de cohérence de données.
+	 * CF: se déplacer dans l'Agent
 	 */
 	@Deprecated
 	public void enleverAgent(Agent agent) {
