@@ -52,5 +52,7 @@ public class VueEnvironnement extends JPanel implements Observer {
 				}
 			}
 		}
+		revalidate();
+		repaint();
 	}
 }
