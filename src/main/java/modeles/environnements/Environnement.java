@@ -32,12 +32,50 @@ public class Environnement extends Observable{
 	public int getLongueur() { return longueur; }
 	public int getHauteur() { return hauteur; }
 	public Agent[][] getGrille() { return grille; }
-
+	
+	/**
+	 * Retourne vrai si la case est vide.
+	 * Ne vérifie pas si x et y sont valides.
+	 * @param x coordonnée x
+	 * @param y coordonnée y
+	 * @return vrai si la case est vide
+	 */
+	public boolean estVide(int x, int y) { return grille[x][y] == null; }
+	/**
+	 * 
+	 * @param x coordonnée x
+	 * @return vrai si x est une coordonnée valide
+	 */
 	public boolean xEstValide(int x) {	return torique || (x >= 0 && x < longueur); }
+	/**
+	 * 
+	 * @param y coordonnée y
+	 * @return vrai si y est une coordonnée valide
+	 */
 	public boolean yEstValide(int y) { return torique || (y >= 0 && y < hauteur); }
+	/**
+	 * 
+	 * @param x coordonnée x
+	 * @param y coordonnée y
+	 * @return vrai s'il existe une case aux coordonnées x et y
+	 */
 	public boolean estValide(int x, int y) { return xEstValide(x) && yEstValide(y); }
 	public boolean estTorique() { return torique; }
-
+	
+	/**
+	 * 
+	 * @param x coordonnée x
+	 * @param y coordonnée y
+	 * @return vrai si la case aux coordonnées x,y est un obstacle (ou si elle n'existe pas)
+	 */
+	public boolean aUnObstacle(int x, int y) {
+		if (torique) {
+			x = getX(x);
+			y = getY(y);
+		}
+		return !estValide(x,y) || !estVide(x,y);
+	}
+	
 	/**
 	 * Ne pas utiliser cette méthode. 
 	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace ou lors de la valorisation de l'Environnement.
