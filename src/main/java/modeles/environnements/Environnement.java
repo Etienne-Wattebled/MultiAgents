@@ -21,31 +21,23 @@ public class Environnement extends Observable{
 	
 	// Convertir torique => coordonnées tableau
 	private int getX(int xTorique) {
-		if (xTorique >= 0) {
-			return xTorique%longueur;
-		} else {
-			return longueur - Math.abs(xTorique);
-		}
+		if (xTorique >= 0) {  return xTorique%longueur; }
+		else { return longueur - Math.abs(xTorique); }
 	}
 	private int getY(int yTorique) {
-		if (yTorique >= 0) {
-			return yTorique%hauteur;
-		} else {
-			return hauteur - Math.abs(yTorique);
-		}
+		if (yTorique >= 0) { return yTorique%hauteur; }
+		else { return hauteur - Math.abs(yTorique); }
 	}
 	
-	public int getLongueur() {
-		return longueur;
-	}
+	public int getLongueur() { return longueur; }
+	public int getHauteur() { return hauteur; }
+	public Agent[][] getGrille() { return grille; }
 
-	public int getHauteur() {
-		return hauteur;
-	}
+	public boolean xEstValide(int x) {	return torique || (x >= 0 && x < longueur); }
+	public boolean yEstValide(int y) { return torique || (y >= 0 && y < hauteur); }
+	public boolean estValide(int x, int y) { return xEstValide(x) && yEstValide(y); }
+	public boolean estTorique() { return torique; }
 
-	public Agent[][] getGrille() {
-		return grille;
-	}
 	/**
 	 * Ne pas utiliser cette méthode. 
 	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace ou lors de la valorisation de l'Environnement.
@@ -75,26 +67,5 @@ public class Environnement extends Observable{
 			grille[agent.getPosX()][agent.getPosY()] = null;
 			notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
 		}
-	}
-	
-	public boolean xEstValide(int x) {
-		if (torique) {
-			return true;
-		} else {
-			return x >= 0 && x < longueur;
-		}
-	}
-	public boolean yEstValide(int y) {
-		if (torique) {
-			return true;
-		} else {
-			return y >= 0 && y < hauteur;
-		}
-	}
-	public boolean estValide(int x, int y) {
-		return xEstValide(x) && yEstValide(y);
-	}
-	public boolean estTorique() {
-		return torique;
 	}
 }
