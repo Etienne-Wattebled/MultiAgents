@@ -23,6 +23,6 @@ public class Bille extends Agent {
 		}
 	}
 	public void doIt() {
-		
+		seDeplacer();
 	}
 }

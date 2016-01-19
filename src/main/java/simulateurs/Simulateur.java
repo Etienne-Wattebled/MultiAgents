@@ -41,4 +41,7 @@ public class Simulateur extends Observable {
 	public void ajouterAgent(Agent agent) {
 		agents.add(agent);
 	}
+	public boolean arreterSimulation(){
+		return continuer = false;
+	}
 }
