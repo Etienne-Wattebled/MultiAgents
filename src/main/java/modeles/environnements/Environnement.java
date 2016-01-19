@@ -5,7 +5,7 @@ import java.util.Observable;
 import vues.environnements.Commande;
 import modeles.agents.Agent;
 
-public class Environnement extends Observable{
+public class Environnement {
 	private int longueur;
 	private int hauteur;
 	private boolean torique;
@@ -71,7 +71,6 @@ public class Environnement extends Observable{
 		}
 		if (existeCase(agent.getPosX(),agent.getPosY())) {	
 			grille[agent.getPosX()][agent.getPosY()] = agent;
-			notifyObservers(new Object[] { Commande.METTRE_AGENT,agent });
 		}
 	}
 	
@@ -85,7 +84,6 @@ public class Environnement extends Observable{
 	public void enleverAgent(Agent agent) {
 		if (existeCase(agent.getPosX(),agent.getPosY())) {
 			grille[agent.getPosX()][agent.getPosY()] = null;
-			notifyObservers(new Object[] { Commande.ENLEVER_AGENT, agent });
 		}
 	}
 }
