@@ -28,6 +28,13 @@ public class Simulateur extends Observable {
 		return environnement;
 	}
 	
+	public int getLongueur() {
+		return environnement.getLongueur();
+	}
+	public int getHauteur() {
+		return environnement.getHauteur();
+	}
+	
 	public void lancerSimulation() {
 		while (continuer && agents.size() > 0) {
 			Collections.shuffle(agents);

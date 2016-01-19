@@ -9,14 +9,18 @@ import javax.swing.JPanel;
 import simulateurs.Simulateur;
 
 public class VueSimulateur extends JFrame {
-	private JPanel vueEnvironnement;
+	private VueEnvironnement vueEnvironnement;
+	private VueMenuEnvironnement vueMenuEnvironnement;
 	
-	public VueSimulateur(int longueur, int hauteur, int tailleCellule, Simulateur simulateur) {
-		this.vueEnvironnement = new VueEnvironnement(longueur, hauteur, tailleCellule,simulateur.getEnvironnement());
+	public VueSimulateur(Simulateur simulateur, int tailleCellule) {
+		this.vueEnvironnement = new VueEnvironnement(simulateur.getEnvironnement(),tailleCellule);
+		this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur);
+		
 		this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		
 		this.add(vueEnvironnement);
-		this.setSize(new Dimension(tailleCellule*longueur, tailleCellule*hauteur));
+		this.add(vueMenuEnvironnement);
+		this.setSize(new Dimension(tailleCellule*simulateur.getLongueur(), tailleCellule*simulateur.getHauteur()));
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 	}
