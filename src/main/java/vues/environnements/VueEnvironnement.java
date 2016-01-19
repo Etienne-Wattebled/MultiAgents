@@ -7,13 +7,16 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import modeles.environnements.Environnement;
+
 public class VueEnvironnement extends JPanel implements Observer {
 	private JPanel JPANEL_BILLE;
 	private JPanel JPANEL_VIERGE;
+	private Environnement environnement;
 	
 	private static final long serialVersionUID = 1L;
 
-	public VueEnvironnement(int longueur, int hauteur, int tailleCellule) {
+	public VueEnvironnement(int longueur, int hauteur, int tailleCellule, Environnement environnement) {
 		this.setSize(tailleCellule*longueur,tailleCellule*hauteur);
 		this.setLayout(new GridLayout(longueur,hauteur));
 		JPANEL_VIERGE = new JPanel();
@@ -22,6 +25,9 @@ public class VueEnvironnement extends JPanel implements Observer {
 		JPANEL_BILLE = new JPanel();
 		JPANEL_BILLE.setBackground(Color.BLACK);
 		JPANEL_BILLE.setSize(tailleCellule,tailleCellule);
+		
+		this.environnement = environnement;
+		
 		for (int i = 0;i<longueur*hauteur; i++) {
 			this.add(JPANEL_VIERGE);
 		}

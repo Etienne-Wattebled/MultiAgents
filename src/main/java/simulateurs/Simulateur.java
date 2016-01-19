@@ -24,6 +24,10 @@ public class Simulateur extends Observable {
 		this(longueur,hauteur,500, tailleCellule);
 	}
 	
+	public Environnement getEnvironnement() {
+		return environnement;
+	}
+	
 	public void lancerSimulation() {
 		while (continuer && agents.size() > 0) {
 			Collections.shuffle(agents);

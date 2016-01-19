@@ -12,7 +12,7 @@ public class VueSimulateur extends JFrame {
 	private JPanel vueEnvironnement;
 	
 	public VueSimulateur(int longueur, int hauteur, int tailleCellule, Simulateur simulateur) {
-		this.vueEnvironnement = new VueEnvironnement(longueur, hauteur, tailleCellule);
+		this.vueEnvironnement = new VueEnvironnement(longueur, hauteur, tailleCellule,simulateur.getEnvironnement());
 		this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		
 		this.add(vueEnvironnement);
