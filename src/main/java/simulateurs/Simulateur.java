@@ -1,6 +1,8 @@
 package simulateurs;
 import modeles.agents.Agent;
 import modeles.environnements.Environnement;
+
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class Simulateur {
@@ -16,8 +18,16 @@ public class Simulateur {
 		this.continuer = true;
 	}
 	public void lancerSimulation() {
-		while (continuer) {
-			
+		while (continuer && agents.size() > 0) {
+			Collections.shuffle(agents);
+			for (Agent a : agents) {
+				a.doIt();
+			}
+			try {
+				Thread.sleep(pauseMS);
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
 		}
 	}
 }
