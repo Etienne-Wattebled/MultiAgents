@@ -62,7 +62,7 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(50,50,10,100,true);
+		Simulateur s = new Simulateur(50,50,20,100,true);
 		s.lancerSimulation();
 	}
 }

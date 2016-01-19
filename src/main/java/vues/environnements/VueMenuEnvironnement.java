@@ -31,11 +31,12 @@ public class VueMenuEnvironnement extends JPanel {
 			}
 		});
 		JButton jb = new JButton("STOP");
-		this.add(jb);
+		
 		jb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				simulateur.arreterSimulation();
 			}
 		});
+		this.setVisible(true);
 	}
 }

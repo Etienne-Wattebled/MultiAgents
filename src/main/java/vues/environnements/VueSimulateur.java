@@ -25,5 +25,6 @@ public class VueSimulateur extends JFrame {
 		this.setSize(new Dimension(tailleCellule*simulateur.getLongueur(), tailleCellule*simulateur.getHauteur()));
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
+		this.pack();
 	}
 }

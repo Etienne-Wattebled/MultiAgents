@@ -6,45 +6,50 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import modeles.environnements.Environnement;
 
 public class VueEnvironnement extends JPanel implements Observer {
-	private JPanel JPANEL_BILLE;
-	private JPanel JPANEL_VIERGE;
+
 	private Environnement environnement;
 	
 	private static final long serialVersionUID = 1L;
 
 	public VueEnvironnement(Environnement environnement, int tailleCellule) {
-		this.setSize(tailleCellule*environnement.getLongueur(),tailleCellule*environnement.getHauteur());
-		this.setLayout(new GridLayout(environnement.getLongueur(),environnement.getHauteur()));
-		JPANEL_VIERGE = new JPanel();
-		JPANEL_VIERGE.setSize(tailleCellule,tailleCellule);
+		JPanel bille;
+		JPanel vierge;
 		
-		JPANEL_BILLE = new JPanel();
-		JPANEL_BILLE.setBackground(Color.BLACK);
-		JPANEL_BILLE.setSize(tailleCellule,tailleCellule);
+		this.setLayout(new GridLayout(environnement.getHauteur(),environnement.getLongueur()));
+		this.setSize(tailleCellule*environnement.getLongueur(),tailleCellule*environnement.getHauteur());
 		
 		this.environnement = environnement;
 		
 		int nb = environnement.getLongueur()*environnement.getHauteur();
 		for (int i = 0;i<nb; i++) {
-			this.add(JPANEL_VIERGE);
+			vierge = new JPanel();
+			vierge.setSize(tailleCellule,tailleCellule);
+			this.add(vierge);
 		}
 		this.setVisible(true);
 	}
-	
+
 	public void update(Observable o, Object arg) {
+		System.out.println("MDR");
+		JPanel bille;
+		JPanel vierge;
 		this.removeAll();
 		int i = environnement.getLongueur();
 		int j = environnement.getHauteur();
 		for (int y=0; y<j;y++) {
 			for (int x =0; x<i;x++) {
 				if (environnement.getAgent(x,y) != null) {
-					this.add(JPANEL_BILLE);
+					bille = new JPanel();
+					bille.setBackground(Color.BLACK);
+					this.add(bille);
 				} else {
-					this.add(JPANEL_VIERGE);
+					vierge = new JPanel();
+					this.add(vierge);
 				}
 			}
 		}
