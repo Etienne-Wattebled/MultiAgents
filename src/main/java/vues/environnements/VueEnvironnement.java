@@ -34,8 +34,7 @@ public class VueEnvironnement extends JPanel implements Observer {
 		this.setVisible(true);
 	}
 
-	public void update(Observable o, Object arg) {
-		System.out.println("MDR");
+	public void update(Observable obs, Object obj) {
 		JPanel bille;
 		JPanel vierge;
 		this.removeAll();

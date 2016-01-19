@@ -4,6 +4,7 @@ import modeles.agents.Bille;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
 
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -52,6 +53,7 @@ public class Simulateur extends Observable {
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
+			setChanged();
 			notifyObservers();
 		}
 	}
