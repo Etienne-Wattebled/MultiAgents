@@ -44,33 +44,15 @@ public abstract class Agent {
 	public Agent(Environnement environnement) {
 		this((int)(environnement.getLongueur()*Math.random()),(int)(environnement.getHauteur()*Math.random()),environnement);		
 	}
-	public int getPosX() {
-		return posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
 	
-	public Direction getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
+	public int getPosX() { return posX; }
+	public int getPosY() { return posY; }
+	public Direction getDirection() { return direction; }
+	public Environnement getEnvironnement() { return environnement; }
 	
-	/**
-	 * Set a random direction.
-	 */
-	public void setDirection() {
-		this.direction = Direction.getRandomDirection();
-	}
-	
-	public Environnement getEnvironnement() {
-		return environnement;
-	}
-	
+	public void setDirection(Direction direction) {	this.direction = direction; }
+	public void setDirection() { this.direction = Direction.getRandomDirection(); }
+		
 	public void seDeplacer(int x, int y) {
 		if (environnement != null) {
 			this.environnement.enleverAgent(this);
@@ -88,9 +70,7 @@ public abstract class Agent {
 	 * Ne pas utiliser cette méthode.
 	 * CF: se déplacer
 	 */
-	public void setPosX(int x) {
-		this.posX = x;
-	}
+	public void setPosX(int x) { this.posX = x; }
 	
 	@Deprecated
 	/**
@@ -99,9 +79,7 @@ public abstract class Agent {
 	 * CF: se déplacer
 	 * @param y
 	 */
-	public void setPosY(int y) {
-		this.posY = y;
-	}
+	public void setPosY(int y) { this.posY = y; }
 	
 	abstract public void doIt();
 }
