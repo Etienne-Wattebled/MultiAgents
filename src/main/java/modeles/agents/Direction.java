@@ -59,7 +59,7 @@ public enum Direction {
 			tab[1] = tab[1]+1;
 		}
 		// OUEST
-		if ((direction == OUEST) || (direction == NORD_OUEST) || (direction == NORD_EST)) {
+		if ((direction == OUEST) || (direction == NORD_OUEST) || (direction == SUD_OUEST)) {
 			tab[0] = tab[0]-1;
 		}
 		// EST

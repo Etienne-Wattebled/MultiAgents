@@ -20,7 +20,6 @@ public class Simulateur extends Observable {
 		this.pauseMS = pauseMS;
 		this.continuer = true;
 		new VueSimulateur(this, tailleCellule);
-		ajouterAgent(new Bille(environnement));
 	}
 	public Simulateur(int longueur, int hauteur, int tailleCellule) {
 		this(longueur,hauteur,500, tailleCellule,false);
@@ -63,7 +62,8 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(50,50,20,100,true);
+		Simulateur s = new Simulateur(50,50,20,100,false);
+		s.ajouterAgent(new Bille(s.getEnvironnement()));
 		s.lancerSimulation();
 	}
 }
