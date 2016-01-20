@@ -16,6 +16,37 @@ public enum Direction {
 		return directions[(int) (nbDirections*Math.random())];
 	}
 	public static Direction getDirectionRebondissement(Direction direction) {
+		Direction directionRebondissement=null;
+		switch (direction) {
+			case NORD:
+				directionRebondissement = SUD;
+				break;
+			case SUD:
+				directionRebondissement = NORD;
+				break;
+			case OUEST:
+				directionRebondissement = EST;
+				break;
+			case EST:
+				directionRebondissement = OUEST;
+				break;
+			case SUD_OUEST:
+				directionRebondissement = NORD_OUEST;
+				break;
+			case SUD_EST:
+				directionRebondissement = NORD_EST;
+				break;
+			case NORD_EST:
+				directionRebondissement = SUD_EST;
+				break;
+			case NORD_OUEST:
+				directionRebondissement = SUD_OUEST;
+				break;
+		}
+		return directionRebondissement;
+	}
+	
+	public static Direction getDirectionOpposee(Direction direction) {
 		Direction directionOpposee=null;
 		switch (direction) {
 			case NORD:
@@ -31,20 +62,21 @@ public enum Direction {
 				directionOpposee = OUEST;
 				break;
 			case SUD_OUEST:
-				directionOpposee = NORD_OUEST;
-				break;
-			case SUD_EST:
 				directionOpposee = NORD_EST;
 				break;
+			case SUD_EST:
+				directionOpposee = NORD_OUEST;
+				break;
 			case NORD_EST:
-				directionOpposee = SUD_EST;
+				directionOpposee = SUD_OUEST;
 				break;
 			case NORD_OUEST:
-				directionOpposee = SUD_OUEST;
+				directionOpposee = SUD_EST;
 				break;
 		}
 		return directionOpposee;
 	}
+	
 	// [x,y]
 	public static int[] calculerNouvellesCoordonnees(Direction direction, int x, int y) {
 		int tab[] = new int[2];

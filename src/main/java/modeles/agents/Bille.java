@@ -26,6 +26,15 @@ public class Bille extends Agent {
 			if (!getEnvironnement().aUnObstacle(xF, yF)) {
 				seDeplacer(xF,yF);
 			}
+			else{
+				setDirection(Direction.getDirectionOpposee(getDirection()));
+				tab = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
+				xF = tab[0];
+				yF = tab[1];
+				if (!getEnvironnement().aUnObstacle(xF, yF)) {
+					seDeplacer(xF,yF);
+				}
+			}
 		}
 	}
 	public void doIt() {
