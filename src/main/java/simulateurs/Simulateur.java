@@ -4,7 +4,6 @@ import modeles.agents.Bille;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
 
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -64,7 +63,7 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(50,50,20,100,false);
+		Simulateur s = new Simulateur(50,50,20,100,true);
 		s.lancerSimulation();
 	}
 }
