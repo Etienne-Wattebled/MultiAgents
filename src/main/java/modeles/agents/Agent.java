@@ -81,5 +81,31 @@ public abstract class Agent {
 	 */
 	public void setPosY(int y) { this.posY = y; }
 	
+	public void seDeplacer() {
+		int tab[] = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
+		int xF = tab[0], yF = tab[1];
+		
+		if (!getEnvironnement().aUnObstacle(xF,yF)) {
+			seDeplacer(xF,yF);
+		} else {
+			setDirection(Direction.getDirectionRebondissement(getDirection()));
+			tab = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
+			xF = tab[0];
+			yF = tab[1];
+			if (!getEnvironnement().aUnObstacle(xF, yF)) {
+				seDeplacer(xF,yF);
+			}
+			else{
+				setDirection(Direction.getDirectionOpposee(getDirection()));
+				tab = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
+				xF = tab[0];
+				yF = tab[1];
+				if (!getEnvironnement().aUnObstacle(xF, yF)) {
+					seDeplacer(xF,yF);
+				}
+			}
+		}
+	}
+	
 	abstract public void doIt();
 }
