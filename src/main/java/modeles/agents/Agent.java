@@ -15,7 +15,7 @@ public abstract class Agent {
 	 * @param direction
 	 * @param environnement
 	 */
-	public Agent(int posX, int posY, Direction direction, Environnement environnement) {
+	public Agent(Environnement environnement, int posX, int posY, Direction direction) {
 		this.posX = posX;
 		this.posY = posY;
 		this.direction = direction;
@@ -31,8 +31,8 @@ public abstract class Agent {
 	 * @param posY
 	 * @param environnement
 	 */
-	public Agent(int posX, int posY, Environnement environnement) {
-		this(posX, posY, Direction.getRandomDirection(), environnement);
+	public Agent(Environnement environnement, int posX, int posY) {
+		this(environnement,posX, posY, Direction.getRandomDirection());
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public abstract class Agent {
 	 * @param environnement
 	 */
 	public Agent(Environnement environnement) {
-		this((int)(environnement.getLongueur()*Math.random()),(int)(environnement.getHauteur()*Math.random()),environnement);		
+		this(environnement,(int)(environnement.getLongueur()*Math.random()),(int)(environnement.getHauteur()*Math.random()));		
 	}
 	
 	public int getPosX() { return posX; }
