@@ -44,7 +44,7 @@ public class VueEnvironnement extends JPanel implements Observer {
 			for (int x =0; x<i;x++) {
 				if (environnement.getAgent(x,y) != null) {
 					bille = new JPanel();
-					bille.setBackground(Color.BLACK);
+					bille.setBackground(Color.BLUE);
 					this.add(bille);
 				} else {
 					vierge = new JPanel();
