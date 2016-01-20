@@ -1,6 +1,7 @@
 package simulateurs;
 import modeles.agents.Agent;
 import modeles.agents.Bille;
+import modeles.agents.Direction;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
 
@@ -63,7 +64,7 @@ public class Simulateur extends Observable {
 	}
 	public static void main(String args[]) {
 		Simulateur s = new Simulateur(50,50,20,100,false);
-		s.ajouterAgent(new Bille(s.getEnvironnement()));
+		s.ajouterAgent(new Bille(s.getEnvironnement(),Direction.SUD_EST));
 		s.lancerSimulation();
 	}
 }
