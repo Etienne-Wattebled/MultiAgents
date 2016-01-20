@@ -63,9 +63,9 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(50,50,20,150,false);
+		Simulateur s = new Simulateur(50,50,5,100,true);
 		//s.ajouterAgent(new Bille(s.getEnvironnement(),Direction.SUD_EST));
-		for (int i=0; i < 25; i++ ){
+		for (int i=0; i < 30; i++ ){
 			s.ajouterAgent(new Bille(s.getEnvironnement()));
 		}
 		s.lancerSimulation();
