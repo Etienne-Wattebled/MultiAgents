@@ -1,5 +1,6 @@
 package vues.environnements;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
@@ -14,17 +15,22 @@ public class VueSimulateur extends JFrame {
 	
 	public VueSimulateur(Simulateur simulateur, int tailleCellule) {
 		this.vueEnvironnement = new VueEnvironnement(simulateur.getEnvironnement(),tailleCellule);
-		this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur);
+		this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur,tailleCellule);
 		
-		this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
+		this.setLayout(new BorderLayout());
 		
 		simulateur.addObserver(vueEnvironnement);
 		
-		this.add(vueEnvironnement);
-		this.add(vueMenuEnvironnement);
-		this.setSize(new Dimension(tailleCellule*simulateur.getLongueur(), tailleCellule*simulateur.getHauteur()));
+		this.add(vueEnvironnement,BorderLayout.CENTER);
+		this.add(vueMenuEnvironnement,BorderLayout.SOUTH);
+		
+		this.setSize(
+				vueEnvironnement.getLongueur()+vueMenuEnvironnement.getLongueur(),
+				vueEnvironnement.getHauteur()+vueMenuEnvironnement.getHauteur()
+		);
+		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-		this.pack();
 	}
 }

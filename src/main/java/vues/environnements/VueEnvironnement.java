@@ -1,58 +1,68 @@
 package vues.environnements;
 
 import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import modeles.agents.Agent;
+import modeles.agents.Bille;
 import modeles.environnements.Environnement;
 
 public class VueEnvironnement extends JPanel implements Observer {
-
-	private Environnement environnement;
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	private Environnement environnement;
+	private int tailleCellule;
+	
+	private int hauteur;
+	private int longueur;
+	
+	public int getHauteur() {
+		return hauteur;
+	}
+	public int getLongueur() {
+		return longueur;
+	}
 	public VueEnvironnement(Environnement environnement, int tailleCellule) {
-		JPanel bille;
-		JPanel vierge;
-		
-		this.setLayout(new GridLayout(environnement.getHauteur(),environnement.getLongueur()));
-		this.setSize(tailleCellule*environnement.getLongueur(),tailleCellule*environnement.getHauteur());
-		
 		this.environnement = environnement;
-		
-		int nb = environnement.getLongueur()*environnement.getHauteur();
-		for (int i = 0;i<nb; i++) {
-			vierge = new JPanel();
-			vierge.setSize(tailleCellule,tailleCellule);
-			this.add(vierge);
+		this.tailleCellule = tailleCellule;
+		this.longueur = environnement.getNbColonnes()*tailleCellule;
+		this.hauteur = environnement.getNbLignes()*tailleCellule;
+		this.setSize(longueur,hauteur);
+	}
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+		Agent grille[][] = environnement.getGrille();
+		int xDeb = (int)(tailleCellule/2);
+		int yDeb = (int)(tailleCellule/2);
+		int x = 0;
+		int y = 0;
+		int longueurMax =grille.length*tailleCellule;
+		int hauteurMax=grille[0].length*tailleCellule;
+		for (int j = yDeb; j<hauteurMax;j=j+tailleCellule) {
+			x = 0;
+			for (int i = xDeb; i<longueurMax;i=i+tailleCellule) {
+				if (grille[x][y] != null) {
+					if (grille[x][y] instanceof Bille) {
+						g.setColor(Color.BLACK);
+						g.fillOval(i, j, tailleCellule,tailleCellule);
+					}
+				}
+				x = x+1;
+			}
+			y = y+1;
 		}
-		this.setVisible(true);
 	}
 
-	public void update(Observable obs, Object obj) {
-		JPanel bille;
-		JPanel vierge;
-		this.removeAll();
-		int i = environnement.getLongueur();
-		int j = environnement.getHauteur();
-		for (int y=0; y<j;y++) {
-			for (int x =0; x<i;x++) {
-				if (environnement.getAgent(x,y) != null) {
-					bille = new JPanel();
-					bille.setBackground(Color.BLUE);
-					this.add(bille);
-				} else {
-					vierge = new JPanel();
-					this.add(vierge);
-				}
-			}
-		}
-		revalidate();
-		repaint();
+	public void update(Observable o, Object arg) {
+		this.repaint();
 	}
 }

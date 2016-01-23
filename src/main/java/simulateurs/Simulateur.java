@@ -15,8 +15,8 @@ public class Simulateur extends Observable {
 	private int pauseMS;
 	private boolean continuer;
 	
-	public Simulateur(int longueur, int hauteur, int tailleCellule, int pauseMS, boolean torique) {
-		this.environnement = new Environnement(longueur,hauteur,torique);
+	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique) {
+		this.environnement = new Environnement(nbColonnes,nbLignes,torique);
 		this.agents = new LinkedList<Agent>();
 		this.pauseMS = pauseMS;
 		this.continuer = true;
@@ -30,11 +30,11 @@ public class Simulateur extends Observable {
 		return environnement;
 	}
 	
-	public int getLongueur() {
-		return environnement.getLongueur();
+	public int getNbColonnes() {
+		return environnement.getNbColonnes();
 	}
-	public int getHauteur() {
-		return environnement.getHauteur();
+	public int getNbLignes() {
+		return environnement.getNbLignes();
 	}
 	
 	public void setPauseMS(int pause) {
@@ -63,9 +63,8 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(50,50,5,100,true);
-		//s.ajouterAgent(new Bille(s.getEnvironnement(),Direction.SUD_EST));
-		for (int i=0; i < 30; i++ ){
+		Simulateur s = new Simulateur(400,200,4,10,false);
+		for (int i=0; i < 10; i++ ){
 			s.ajouterAgent(new Bille(s.getEnvironnement()));
 		}
 		s.lancerSimulation();

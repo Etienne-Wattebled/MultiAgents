@@ -5,16 +5,16 @@ import java.util.Observable;
 import modeles.agents.Agent;
 
 public class Environnement {
-	private int longueur;
-	private int hauteur;
+	private int nbColonnes;
+	private int nbLignes;
 	private boolean torique;
 	
 	private Agent[][] grille;
 
-	public Environnement(int longueur, int hauteur) {
-		this.hauteur = hauteur;
-		this.longueur = longueur;
-		this.grille = new Agent[longueur][hauteur];
+	public Environnement(int nbColonnes, int nbLignes) {
+		this.nbLignes = nbLignes;
+		this.nbColonnes = nbColonnes;
+		this.grille = new Agent[nbColonnes][nbLignes];
 		this.torique = false;
 	}
 	public Environnement(int longueur, int hauteur, boolean torique) {
@@ -24,12 +24,12 @@ public class Environnement {
 	
 	// Convertir torique => coordonnées tableau
 	private int getX(int xTorique) {
-		if (xTorique >= 0) {  return xTorique%longueur; }
-		else { return longueur - Math.abs(xTorique); }
+		if (xTorique >= 0) {  return xTorique%nbColonnes; }
+		else { return nbColonnes - Math.abs(xTorique); }
 	}
 	private int getY(int yTorique) {
-		if (yTorique >= 0) { return yTorique%hauteur; }
-		else { return hauteur - Math.abs(yTorique); }
+		if (yTorique >= 0) { return yTorique%nbLignes; }
+		else { return nbLignes - Math.abs(yTorique); }
 	}
 	
 	public Agent getAgent(int x, int y) { 
@@ -37,8 +37,8 @@ public class Environnement {
 		return null;
 	}
 	
-	public int getLongueur() { return longueur; }
-	public int getHauteur() { return hauteur; }
+	public int getNbColonnes() { return nbColonnes; }
+	public int getNbLignes() { return nbLignes; }
 	public Agent[][] getGrille() { return grille; }
 	
 	/**
@@ -47,7 +47,7 @@ public class Environnement {
 	 * @param y coordonnée y
 	 * @return vrai s'il existe une case aux coordonnées x et y
 	 */
-	public boolean existeCase(int x, int y) { return torique || (x >= 0 && y >= 0 && x < longueur && y < hauteur); }
+	public boolean existeCase(int x, int y) { return torique || (x >= 0 && y >= 0 && x < nbColonnes && y < nbLignes); }
 	public boolean estTorique() { return torique; }
 	
 	/**

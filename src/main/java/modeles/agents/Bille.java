@@ -7,7 +7,7 @@ public class Bille extends Agent {
 		super(environnement,posX,posY,direction);
 	}
 	public Bille(Environnement environnement, Direction direction) {
-		this(environnement,(int)(environnement.getLongueur()*Math.random()),(int)(environnement.getHauteur()*Math.random()),direction);
+		this(environnement,(int)(environnement.getNbColonnes()*Math.random()),(int)(environnement.getNbLignes()*Math.random()),direction);
 	}
 	public Bille(Environnement environnement) {
 		super(environnement);

@@ -1,10 +1,12 @@
 package vues.environnements;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -12,16 +14,31 @@ import simulateurs.Simulateur;
 
 public class VueMenuEnvironnement extends JPanel {
 	private Simulateur simulateur;
+	private int tailleCellule;
 	
-	public VueMenuEnvironnement(final Simulateur simulateur){
-		super();
+	private int hauteur;
+	private int longueur;
+	
+	public int getHauteur() {
+		return hauteur;
+	}
+	
+	public int getLongueur() {
+		return longueur;
+	}
+	
+	public VueMenuEnvironnement(final Simulateur simulateur, int tailleCellule){
+		this.tailleCellule = tailleCellule;
 		this.simulateur = simulateur;
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		this.longueur = (simulateur.getEnvironnement().getNbColonnes())*tailleCellule;
+		this.hauteur = 100;
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		final JTextField jtf = new JTextField();
-		this.add(jtf);
+		jtf.setSize(15,5);
+		
 		JButton ok = new JButton("OK");
-		this.add(ok);
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (jtf.getText() != null) {
@@ -30,13 +47,16 @@ public class VueMenuEnvironnement extends JPanel {
 				
 			}
 		});
-		JButton jb = new JButton("STOP");
-		
-		jb.addActionListener(new ActionListener() {
+		JButton stop = new JButton("STOP");
+		stop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				simulateur.arreterSimulation();
 			}
 		});
-		this.setVisible(true);
+		this.add(jtf);
+		this.add(ok);
+		this.add(stop);
+		
+		this.setSize(simulateur.getNbColonnes()*tailleCellule,100);
 	}
 }

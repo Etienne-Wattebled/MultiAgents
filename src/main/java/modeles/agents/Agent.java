@@ -42,7 +42,7 @@ public abstract class Agent {
 	 * @param environnement
 	 */
 	public Agent(Environnement environnement) {
-		this(environnement,(int)(environnement.getLongueur()*Math.random()),(int)(environnement.getHauteur()*Math.random()));		
+		this(environnement,(int)(environnement.getNbColonnes()*Math.random()),(int)(environnement.getNbLignes()*Math.random()));		
 	}
 	
 	public int getPosX() { return posX; }
