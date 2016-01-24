@@ -15,66 +15,56 @@ public enum Direction {
 		int nbDirections = directions.length;
 		return directions[(int) (nbDirections*Math.random())];
 	}
-	public static Direction getDirectionRebondissement(Direction direction) {
-		Direction directionRebondissement=null;
+	public static Direction[] getDirectionsPossiblesApresObstacle(Direction direction) {
+		Direction directionRebondissement[] = new Direction[3];
 		switch (direction) {
 			case NORD:
-				directionRebondissement = SUD;
+				directionRebondissement[0] = SUD;
+				directionRebondissement[1] = SUD_OUEST;
+				directionRebondissement[2] = SUD_EST;
 				break;
+				
 			case SUD:
-				directionRebondissement = NORD;
+				directionRebondissement[0] = NORD;
+				directionRebondissement[1] = NORD_OUEST;
+				directionRebondissement[2] = NORD_EST;
+
 				break;
 			case OUEST:
-				directionRebondissement = EST;
+				directionRebondissement[0] = EST;
+				directionRebondissement[1] = NORD_EST;
+				directionRebondissement[2] = SUD_EST;
+
 				break;
 			case EST:
-				directionRebondissement = OUEST;
+				directionRebondissement[0] = OUEST;
+				directionRebondissement[1] = NORD_OUEST;
+				directionRebondissement[2] = SUD_OUEST;
+
 				break;
 			case SUD_OUEST:
-				directionRebondissement = NORD_OUEST;
+				directionRebondissement[0] = NORD_OUEST;
+				directionRebondissement[1] = SUD_EST;
+				directionRebondissement[2] = NORD_EST;
+				
 				break;
 			case SUD_EST:
-				directionRebondissement = NORD_EST;
+				directionRebondissement[0] = NORD_EST;
+				directionRebondissement[1] = SUD_OUEST;
+				directionRebondissement[2] = NORD_OUEST;
 				break;
 			case NORD_EST:
-				directionRebondissement = SUD_EST;
+				directionRebondissement[0] = SUD_EST;
+				directionRebondissement[1] = NORD_OUEST;
+				directionRebondissement[2] = SUD_OUEST;
 				break;
 			case NORD_OUEST:
-				directionRebondissement = SUD_OUEST;
+				directionRebondissement[0] = SUD_OUEST;
+				directionRebondissement[1] = NORD_EST;
+				directionRebondissement[2] = SUD_EST;
 				break;
 		}
 		return directionRebondissement;
-	}
-	
-	public static Direction getDirectionOpposee(Direction direction) {
-		Direction directionOpposee=null;
-		switch (direction) {
-			case NORD:
-				directionOpposee = SUD;
-				break;
-			case SUD:
-				directionOpposee = NORD;
-				break;
-			case OUEST:
-				directionOpposee = EST;
-				break;
-			case EST:
-				directionOpposee = OUEST;
-				break;
-			case SUD_OUEST:
-				directionOpposee = NORD_EST;
-				break;
-			case SUD_EST:
-				directionOpposee = NORD_OUEST;
-				break;
-			case NORD_EST:
-				directionOpposee = SUD_OUEST;
-				break;
-			case NORD_OUEST:
-				directionOpposee = SUD_EST;
-				break;
-		}
-		return directionOpposee;
 	}
 	
 	// [x,y]

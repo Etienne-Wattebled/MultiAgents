@@ -63,7 +63,7 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(400,200,4,10,false);
+		Simulateur s = new Simulateur(200,200,4,10,false);
 		for (int i=0; i < 10; i++ ){
 			s.ajouterAgent(new Bille(s.getEnvironnement()));
 		}
