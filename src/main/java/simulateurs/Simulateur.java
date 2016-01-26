@@ -52,11 +52,14 @@ public class Simulateur extends Observable {
 	}
 	
 	public void lancerSimulation() {
-		agents.addAll(agentsAAjouter);
-		agentsAAjouter.clear();
 		ListIterator<Agent> itAgents = null;
 		Agent agent = null;
 		while (continuer) {
+			agents.removeAll(agentsASupprimer);
+			agentsASupprimer.clear();
+			agents.addAll(agentsAAjouter);
+			agentsAAjouter.clear();
+			
 			Collections.shuffle(agents);
 			itAgents = agents.listIterator();
 			while (itAgents.hasNext()) {
@@ -80,10 +83,6 @@ public class Simulateur extends Observable {
 			itAgents = null;
 			setChanged();
 			notifyObservers();
-			agents.removeAll(agentsASupprimer);
-			agentsASupprimer.clear();
-			agents.addAll(agentsAAjouter);
-			agentsAAjouter.clear();
 		}
 	}
 	
@@ -101,14 +100,14 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(100,100,6,100,false);
+		Simulateur s = new Simulateur(100,100,6,1000,false);
 		/*
 		for (int i=0; i < 10; i++ ){
 			new Bille(s);
 		}
 		*/
 		for (int i=0; i < 1; i++ ){
-			s.ajouterAgent(new Requin(s,5,3,2));
+			s.ajouterAgent(new Requin(s,5,3,10));
 		}
 		s.lancerSimulation();
 	}

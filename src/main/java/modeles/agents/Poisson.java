@@ -13,16 +13,17 @@ public class Poisson extends EtreVivant{
 	}
 	
 	public void doIt(){
-		super.doIt();
 		seDeplacer();
-		
-		// Si le poisson est en âge de se reproduire
-		// et qu'il y a eu assez de temps entre deux naissances
-		// et qu'il y a de la place à côté de lui
+		seReproduire();
+		super.doIt();
+	}
+	public void seReproduire() {
 		int tab[] = simulateur.getEnvironnement().getCaseLibreAuxAlentours(posX,posY);
-		if(estMature() && (nbToursEntreDeuxNaissances == 0) && (tab != null)){
+		// Si c'est possible de se reproduire
+		if(peutSeReproduire() && (tab != null)){
 			// Nouveau poisson
-			new Poisson(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial);
+			simulateur.ajouterAgent(new Poisson(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial));
+			resetNbToursEntreDeuxNaissances();
 		}
 	}
 }
