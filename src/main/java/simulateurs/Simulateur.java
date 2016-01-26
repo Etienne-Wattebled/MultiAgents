@@ -101,7 +101,7 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(100,100,6,1000,false);
+		Simulateur s = new Simulateur(100,100,6,100,false);
 		for (int i=0; i < 10; i++ ){
 			s.ajouterAgent(
 					new Poisson(

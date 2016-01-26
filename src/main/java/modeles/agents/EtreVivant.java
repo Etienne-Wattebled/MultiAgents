@@ -46,7 +46,7 @@ public abstract class EtreVivant extends Agent{
 		}
 		if (nbToursConserverDirection == 0) {
 			this.direction = Direction.getRandomDirection();
-			this.nbToursConserverDirection = 2 + (int)(Math.random()*3);
+			this.nbToursConserverDirection = 6 + (int)(Math.random()*7);
 		}
 		if (nbToursAvantMaturite > 0) {
 			nbToursAvantMaturite = nbToursAvantMaturite - 1;
