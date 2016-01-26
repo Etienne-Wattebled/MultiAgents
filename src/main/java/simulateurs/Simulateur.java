@@ -19,6 +19,9 @@ public class Simulateur extends Observable {
 	private int pauseMS;
 	private boolean continuer;
 	
+	private int cptPoisson = 0;
+	private int cptRequin = 0;
+	
 	private LinkedList<Agent> agentsAAjouter;
 	private LinkedList<Agent> agentsASupprimer;
 	
@@ -66,6 +69,12 @@ public class Simulateur extends Observable {
 			while (itAgents.hasNext()) {
 				agent = itAgents.next();
 				if (agent instanceof EtreVivant) {
+					if(agent instanceof Poisson){
+						cptPoisson++;
+					}
+					else{
+						cptRequin++;
+					}
 					EtreVivant ev = (EtreVivant) agent;
 					if (ev.estEnVie()) {
 						ev.doIt();
@@ -81,6 +90,10 @@ public class Simulateur extends Observable {
 					ie.printStackTrace();
 				}
 			}
+			System.out.println("Nbr poissons : " + cptPoisson);
+			System.out.println("Nbr requins : " + cptRequin);
+			cptRequin = 0;
+			cptPoisson = 0;
 			itAgents = null;
 			setChanged();
 			notifyObservers();
