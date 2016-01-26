@@ -115,22 +115,22 @@ public class Simulateur extends Observable {
 	}
 	public static void main(String args[]) {
 		Simulateur s = new Simulateur(100,100,6,30,true);
-		for (int i=0; i < 10; i++ ){
+		for (int i=0; i < 200; i++ ){
 			s.ajouterAgent(
 					new Poisson(
 							s, // simulateur
-							30, // délais maturité
-							30 // délais entre deux naissances
+							5, // délais maturité
+							10 // délais entre deux naissances
 					)
 			);
 		}
-		for (int i=0; i < 50; i++ ){
+		for (int i=0; i < 10; i++ ){
 			s.ajouterAgent(
 					new Requin(
 							s, // simulateur
-							150, // délais maturité
-							15, // délais entre deux naissances
-							90 // délais mort sans manger
+							10, // délais maturité
+							20, // délais entre deux naissances
+							25 // délais mort sans manger
 					)
 			);
 		}
