@@ -87,6 +87,10 @@ public class Environnement {
 			for (int j = -1; j<=1;j++) {
 				xp = x+i;
 				yp = y+j;
+				if (torique) {
+					xp = getX(x);
+					yp = getY(y);
+				}
 				if (!aUnObstacle(xp, yp)) {
 					return new int[] {xp,yp};
 				}
@@ -101,6 +105,10 @@ public class Environnement {
 			for (int j =-1;j<=1;j++) {
 				xp = x+i;
 				yp = y+j;
+				if (torique) {
+					xp = getX(x);
+					yp = getY(y);
+				}
 				if ((aUnObstacle(xp,yp)) && (existeCase(xp,yp)) && (xp!=x) && (yp != y) && (grille[xp][yp] instanceof Agent)) {
 					agents.add(grille[xp][yp]);
 				}
