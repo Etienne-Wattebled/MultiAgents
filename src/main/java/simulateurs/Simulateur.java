@@ -63,6 +63,8 @@ public class Simulateur extends Observable {
 			agentsASupprimer.clear();
 			agents.addAll(agentsAAjouter);
 			agentsAAjouter.clear();
+			setChanged();
+			notifyObservers();
 			
 			Collections.shuffle(agents);
 			itAgents = agents.listIterator();
@@ -95,8 +97,6 @@ public class Simulateur extends Observable {
 			cptRequin = 0;
 			cptPoisson = 0;
 			itAgents = null;
-			setChanged();
-			notifyObservers();
 		}
 	}
 	
@@ -114,12 +114,12 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(100,100,6,100,true);
+		Simulateur s = new Simulateur(100,100,6,50,true);
 		for (int i=0; i < 10; i++ ){
 			s.ajouterAgent(
 					new Poisson(
 							s, // simulateur
-							40, // délais maturité
+							30, // délais maturité
 							10 // délais entre deux naissances
 					)
 			);
@@ -128,9 +128,9 @@ public class Simulateur extends Observable {
 			s.ajouterAgent(
 					new Requin(
 							s, // simulateur
-							90, // délais maturité
+							60, // délais maturité
 							15, // délais entre deux naissances
-							70 // délais mort sans manger
+							60 // délais mort sans manger
 					)
 			);
 		}
