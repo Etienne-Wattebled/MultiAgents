@@ -1,16 +1,16 @@
 package modeles.agents;
 
-import modeles.environnements.Environnement;
+import simulateurs.Simulateur;
 
 public class Bille extends Agent {
-	public Bille(Environnement environnement, int posX, int posY, Direction direction) {
-		super(environnement,posX,posY,direction);
+	public Bille(Simulateur simulateur, int posX, int posY, Direction direction) {
+		super(simulateur,posX,posY,direction);
 	}
-	public Bille(Environnement environnement, Direction direction) {
-		this(environnement,(int)(environnement.getNbColonnes()*Math.random()),(int)(environnement.getNbLignes()*Math.random()),direction);
+	public Bille(Simulateur simulateur, Direction direction) {
+		this(simulateur,(int)(simulateur.getEnvironnement().getNbColonnes()*Math.random()),(int)(simulateur.getEnvironnement().getNbLignes()*Math.random()),direction);
 	}
-	public Bille(Environnement environnement) {
-		super(environnement);
+	public Bille(Simulateur simulateur) {
+		super(simulateur);
 	}
 	
 	public void doIt() {

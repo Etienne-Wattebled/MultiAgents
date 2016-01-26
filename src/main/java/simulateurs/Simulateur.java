@@ -2,11 +2,14 @@ package simulateurs;
 import modeles.agents.Agent;
 import modeles.agents.Bille;
 import modeles.agents.Direction;
+import modeles.agents.EtreVivant;
+import modeles.agents.Requin;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Observable;
 
 public class Simulateur extends Observable {
@@ -42,30 +45,69 @@ public class Simulateur extends Observable {
 	}
 	
 	public void lancerSimulation() {
+		ListIterator<Agent> itAgents = null;
+		Agent agent = null;
 		while (continuer) {
 			Collections.shuffle(agents);
-			for (Agent a : agents) {
-				a.doIt();
+			itAgents = agents.listIterator();
+			while (itAgents.hasNext()) {
+				agent = itAgents.next();
+				if (agent instanceof EtreVivant) {
+					EtreVivant ev = (EtreVivant) agent;
+					if (ev.estEnVie()) {
+						ev.doIt();
+					} else {
+						itAgents.remove();
+						environnement.enleverAgent(ev);
+					}
+				} else {
+					agent.doIt();
+				}
+				
+			}	
+			if (pauseMS > 0) {
+				try {
+					Thread.sleep(pauseMS);
+				} catch (InterruptedException ie) {
+					ie.printStackTrace();
+				}
 			}
-			try {
-				Thread.sleep(pauseMS);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
+			itAgents = null;
 			setChanged();
 			notifyObservers();
 		}
 	}
+	@Deprecated
+	/**
+	 * Appelée automatiquement lorsqu'on passe le simulateur à l'agent.
+	 * @param agent
+	 */
 	public void ajouterAgent(Agent agent) {
 		agents.add(agent);
+		environnement.mettreAgent(agent);
 	}
+	/**
+	 * Appelée automatiquement lorsqu'on passe le simulateur à l'agent.
+	 * @param agent
+	 */
+	@Deprecated
+	public void supprimerAgent(Agent agent) {
+		agents.remove(agent);
+		environnement.enleverAgent(agent);
+	}
+	
 	public boolean arreterSimulation(){
 		return continuer = false;
 	}
 	public static void main(String args[]) {
 		Simulateur s = new Simulateur(200,200,4,10,false);
+		/*
 		for (int i=0; i < 10; i++ ){
-			s.ajouterAgent(new Bille(s.getEnvironnement()));
+			new Bille(s);
+		}
+		*/
+		for (int i=0; i < 100; i++ ){
+			new Requin(s,5,3,10);
 		}
 		s.lancerSimulation();
 	}

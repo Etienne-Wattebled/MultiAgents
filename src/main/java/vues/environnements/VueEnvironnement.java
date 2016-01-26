@@ -12,6 +12,8 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import modeles.agents.Agent;
 import modeles.agents.Bille;
+import modeles.agents.Poisson;
+import modeles.agents.Requin;
 import modeles.environnements.Environnement;
 
 public class VueEnvironnement extends JPanel implements Observer {
@@ -54,6 +56,14 @@ public class VueEnvironnement extends JPanel implements Observer {
 					if (grille[x][y] instanceof Bille) {
 						g.setColor(Color.BLACK);
 						g.fillOval(i, j, tailleCellule,tailleCellule);
+					}
+					else if (grille[x][y] instanceof Requin) {
+						g.setColor(Color.GRAY);
+						g.fillOval(i, j, tailleCellule, tailleCellule);
+					}
+					else if (grille[x][y] instanceof Poisson) {
+						g.setColor(Color.RED);
+						g.fillOval(i, j, tailleCellule, tailleCellule);
 					}
 				}
 				x = x+1;

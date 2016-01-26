@@ -1,6 +1,7 @@
 package modeles.environnements;
 
-import java.util.Observable;
+import java.util.LinkedList;
+import java.util.List;
 
 import modeles.agents.Agent;
 
@@ -64,14 +65,13 @@ public class Environnement {
 		return !existeCase(x,y) || grille[x][y] != null;
 	}
 	
+	
+	@Deprecated
 	/**
-	 * Ne pas utiliser cette méthode. 
-	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace ou lors de la valorisation de l'Environnement.
-	 * Risque : problèmes de cohérence de données.
-	 * CF: se déplacer dans l'Agent
+	 * Ne pas utiliser ! DANGER !
+	 * Appelée automatiquement par le Simulateur
 	 * @param agent
 	 */
-	@Deprecated
 	public void mettreAgent(Agent agent) {
 		if (torique) {
 			agent.setPosX(getX(agent.getPosX()));
@@ -82,16 +82,44 @@ public class Environnement {
 		}
 	}
 	
-	/**
-	 * Ne pas utiliser cette méthode. 
-	 * Elle est utilisée automatiquement par l'Agent lorsqu'il se déplace.
-	 * Risque : problèmes de cohérence de données.
-	 * CF: se déplacer dans l'Agent
-	 */
+	
 	@Deprecated
+	/**
+	 * Ne pas utiliser ! DANGER !
+	 * Appelée automatiquement par le Simulateur
+	 * @param agent
+	 */
 	public void enleverAgent(Agent agent) {
 		if (existeCase(agent.getPosX(),agent.getPosY())) {
 			grille[agent.getPosX()][agent.getPosY()] = null;
 		}
+	}
+	
+	public int[] getCaseLibreAuxAlentours(int x,int y) {
+		int xp,yp; // périphérie
+		for (int i = -1; i<=1 ;i++) {
+			for (int j = -1; j<=1;j++) {
+				xp = x+i;
+				yp = y+j;
+				if (!aUnObstacle(xp, yp)) {
+					return new int[] {xp,yp};
+				}
+			}
+		}
+		return null;
+	}
+	public List<Agent> getAgentsAuxAlentours(int x, int y) {
+		LinkedList<Agent> agents = new LinkedList<Agent>();
+		int xp,yp; // périphérie
+		for (int i = -1; i<=1;i++) {
+			for (int j =-1;j<=1;j++) {
+				xp = x+i;
+				yp = y+j;
+				if ((aUnObstacle(xp,yp)) && (existeCase(xp,yp)) && (xp!=x) && (yp != y) && (grille[xp][yp] instanceof Agent)) {
+					agents.add(grille[xp][yp]);
+				}
+			}
+		}
+		return agents;
 	}
 }
