@@ -47,12 +47,12 @@ public class Requin extends EtreVivant {
 		int tab[] = simulateur.getEnvironnement().getCaseLibreAuxAlentours(posX,posY);
 		if(estMature() && (nbToursEntreDeuxNaissances == 0) && (tab != null)){
 			// Nouveau requin
-			new Requin(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial,nbToursAvantMortFaimInitial);
+			simulateur.ajouterAgent(new Requin(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial,nbToursAvantMortFaimInitial));
 		}
 		
 		// On vérifie la vie du requin
 		if(nbToursAvantMortFaim == 0) {
-			simulateur.supprimerAgent(this);
+			enVie = false;
 		}
 	}
 }

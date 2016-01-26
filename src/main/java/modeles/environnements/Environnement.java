@@ -64,14 +64,7 @@ public class Environnement {
 		}
 		return !existeCase(x,y) || grille[x][y] != null;
 	}
-	
-	
-	@Deprecated
-	/**
-	 * Ne pas utiliser ! DANGER !
-	 * Appelée automatiquement par le Simulateur
-	 * @param agent
-	 */
+
 	public void mettreAgent(Agent agent) {
 		if (torique) {
 			agent.setPosX(getX(agent.getPosX()));
@@ -82,13 +75,6 @@ public class Environnement {
 		}
 	}
 	
-	
-	@Deprecated
-	/**
-	 * Ne pas utiliser ! DANGER !
-	 * Appelée automatiquement par le Simulateur
-	 * @param agent
-	 */
 	public void enleverAgent(Agent agent) {
 		if (existeCase(agent.getPosX(),agent.getPosY())) {
 			grille[agent.getPosX()][agent.getPosY()] = null;

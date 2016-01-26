@@ -21,9 +21,6 @@ public abstract class Agent {
 		this.posY = posY;
 		this.direction = direction;
 		this.simulateur = simulateur;
-		if (simulateur != null) {
-			simulateur.ajouterAgent(this);
-		}
 	}
 	/**
 	 * Direction aléatoire
@@ -65,21 +62,7 @@ public abstract class Agent {
 		}
 	}
 	
-	@Deprecated
-	/**
-	 * Méthode utilisée par l'environnement lorsqu'elle sait ce qu'elle fait.
-	 * Ne pas utiliser cette méthode.
-	 * CF: se déplacer
-	 */
 	public void setPosX(int x) { this.posX = x; }
-	
-	@Deprecated
-	/**
-	 * Méthode utilisée par l'environnement lorsqu'elle sait ce qu'elle fait.
-	 * Ne pas utiliser cette méthode.
-	 * CF: se déplacer
-	 * @param y
-	 */
 	public void setPosY(int y) { this.posY = y; }
 	
 	public void seDeplacer() {
