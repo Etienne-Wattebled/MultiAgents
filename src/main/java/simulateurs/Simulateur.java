@@ -3,6 +3,7 @@ import modeles.agents.Agent;
 import modeles.agents.Bille;
 import modeles.agents.Direction;
 import modeles.agents.EtreVivant;
+import modeles.agents.Poisson;
 import modeles.agents.Requin;
 import modeles.environnements.Environnement;
 import vues.environnements.VueSimulateur;
@@ -101,13 +102,24 @@ public class Simulateur extends Observable {
 	}
 	public static void main(String args[]) {
 		Simulateur s = new Simulateur(100,100,6,1000,false);
-		/*
 		for (int i=0; i < 10; i++ ){
-			new Bille(s);
+			s.ajouterAgent(
+					new Poisson(
+							s, // simulateur
+							5, // délais maturité
+							5 // délais entre deux naissances
+					)
+			);
 		}
-		*/
-		for (int i=0; i < 1; i++ ){
-			s.ajouterAgent(new Requin(s,5,3,10));
+		for (int i=0; i < 10; i++ ){
+			s.ajouterAgent(
+					new Requin(
+							s, // simulateur
+							5, // délais maturité
+							3, // délais entre deux naissances
+							10 // délais mort sans manger
+					)
+			);
 		}
 		s.lancerSimulation();
 	}

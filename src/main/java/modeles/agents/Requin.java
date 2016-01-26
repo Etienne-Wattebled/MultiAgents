@@ -48,6 +48,7 @@ public class Requin extends EtreVivant {
 				Poisson p = (Poisson) a;
 				aMange = true;
 				p.setEnVie(false);
+				simulateur.supprimerAgent(p);
 				this.nbToursAvantMortFaim = this.nbToursAvantMortFaim+ 3 + (int)(2*Math.random());
 			}
 		}
