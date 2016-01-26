@@ -120,7 +120,7 @@ public class Simulateur extends Observable {
 					new Poisson(
 							s, // simulateur
 							5, // délais maturité
-							10 // délais entre deux naissances
+							8 // délais entre deux naissances
 					)
 			);
 		}
