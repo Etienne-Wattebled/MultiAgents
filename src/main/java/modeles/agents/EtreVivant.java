@@ -34,7 +34,7 @@ public abstract class EtreVivant extends Agent{
 	
 	public void seDeplacer() {
 		int nbToursConserverDirectionMin = 2;
-		int nbToursConserverDirectionMax = 10;
+		int nbToursConserverDirectionMax = 4;
 		
 		if (nbToursConserverDirection == 0) {
 			this.direction = Direction.getRandomDirection();

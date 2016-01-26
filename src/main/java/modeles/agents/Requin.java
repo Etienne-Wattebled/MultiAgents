@@ -50,9 +50,11 @@ public class Requin extends EtreVivant {
 			simulateur.ajouterAgent(new Requin(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial,nbToursAvantMortFaimInitial));
 		}
 		
+		this.nbToursAvantMortFaim = nbToursAvantMortFaim -1;
 		// On vérifie la vie du requin
 		if(nbToursAvantMortFaim == 0) {
 			enVie = false;
+			simulateur.supprimerAgent(this);
 		}
 	}
 }
