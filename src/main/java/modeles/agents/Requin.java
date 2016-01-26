@@ -49,7 +49,7 @@ public class Requin extends EtreVivant {
 				aMange = true;
 				p.setEnVie(false);
 				simulateur.supprimerAgent(p);
-				this.nbToursAvantMortFaim = this.nbToursAvantMortFaim + 10 + (int)(8*Math.random());
+				this.nbToursAvantMortFaim = this.nbToursAvantMortFaim + 50 + (int)(30*Math.random());
 			}
 		}
 	}
