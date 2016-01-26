@@ -41,6 +41,9 @@ public abstract class EtreVivant extends Agent{
 	}
 	
 	public void doIt() {
+		if (estMature() && nbToursEntreDeuxNaissances > 0) {
+			nbToursEntreDeuxNaissances = nbToursEntreDeuxNaissances - 1;
+		}
 		if (nbToursConserverDirection == 0) {
 			this.direction = Direction.getRandomDirection();
 			this.nbToursConserverDirection = 2 + (int)(Math.random()*3);
@@ -50,9 +53,6 @@ public abstract class EtreVivant extends Agent{
 		}
 		if (nbToursConserverDirection > 0) {
 			nbToursConserverDirection = nbToursConserverDirection - 1;
-		}
-		if (estMature() && nbToursEntreDeuxNaissances > 0) {
-			nbToursEntreDeuxNaissances = nbToursEntreDeuxNaissances - 1;
 		}
 	}
 	
