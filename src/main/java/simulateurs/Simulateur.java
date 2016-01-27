@@ -119,8 +119,8 @@ public class Simulateur extends Observable {
 			s.ajouterAgent(
 					new Poisson(
 							s, // simulateur
-							5, // délais maturité
-							9 // délais entre deux naissances
+							10, // délais maturité
+							10 // délais entre deux naissances
 					)
 			);
 		}
@@ -128,8 +128,8 @@ public class Simulateur extends Observable {
 			s.ajouterAgent(
 					new Requin(
 							s, // simulateur
-							10, // délais maturité
-							20, // délais entre deux naissances
+							50, // délais maturité
+							12, // délais entre deux naissances
 							25 // délais mort sans manger
 					)
 			);
