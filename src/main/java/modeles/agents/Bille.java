@@ -13,7 +13,7 @@ public class Bille extends Agent {
 		super(simulateur);
 	}
 	
-	public void doIt() {
+	public void interagir() {
 		seDeplacer();
 	}
 }

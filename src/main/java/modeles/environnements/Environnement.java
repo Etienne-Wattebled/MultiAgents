@@ -80,7 +80,12 @@ public class Environnement {
 			grille[agent.getPosX()][agent.getPosY()] = null;
 		}
 	}
-	
+	/**
+	 * Retourne les coordonnées d'une seule case libre si elle existe
+	 * @param x coordonnée x du point dont on doit chercher autour
+	 * @param y coordonnée y du point dont on doit chercher autour
+	 * @return
+	 */
 	public int[] getCaseLibreAuxAlentours(int x,int y) {
 		int xp,yp; // périphérie
 		for (int i = -1; i<=1 ;i++) {
@@ -115,5 +120,24 @@ public class Environnement {
 			}
 		}
 		return agents;
+	}
+	/** 
+	 * Retourne une case libre aléatoirement, null si non trouvée.
+	 * Fait nbCases tentatives.
+	 * @return les coordonnées d'une case libre aléatoirement, null si ne parvient pas à trouver.
+	 */
+	public int[] getCaseLibreAleatoire() {
+		int xa=-1, ya=-1;
+		int nbTentatives = nbColonnes*nbLignes;
+		while (aUnObstacle(xa, ya) && (nbTentatives > 0)) {
+			xa = (int)(Math.random()*nbColonnes);
+			ya = (int)(Math.random()*nbLignes);
+			nbTentatives = nbTentatives -1;
+		}
+		if (aUnObstacle(xa, ya)) {
+			return null;
+		} else {
+			return new int[] {xa,ya};
+		}
 	}
 }

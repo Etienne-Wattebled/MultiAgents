@@ -7,34 +7,21 @@ import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
 
 public class Requin extends EtreVivant {
-	protected int nbToursAvantMortFaim;
-	protected int nbToursAvant;
 	
-	protected int nbToursAvantMortFaimInitial;
-
 	public Requin(Simulateur simulateur, int nbToursAvantMaturite, int nbToursEntreDeuxNaissances, int nbToursAvantMortFaim){
-		this(
-				simulateur,
-				(int)(simulateur.getEnvironnement().getNbColonnes()*Math.random()),
-				(int)(simulateur.getEnvironnement().getNbLignes()*Math.random()),
-				nbToursAvantMaturite,
-				nbToursEntreDeuxNaissances,
-				nbToursAvantMortFaim
-		);
+		super(simulateur,nbToursAvantMortFaim, nbToursAvantMaturite, nbToursEntreDeuxNaissances);
 	}
 	
 	public Requin(Simulateur simulateur, int posX, int posY, int nbToursAvantMaturite, int nbToursEntreDeuxNaissances, int nbToursAvantMortFaim){
-		super(simulateur,posX, posY, nbToursAvantMaturite, nbToursEntreDeuxNaissances);
-		this.nbToursAvantMortFaim = nbToursAvantMortFaim;
-		this.nbToursAvantMortFaimInitial = nbToursAvantMortFaim;
+		super(simulateur,posX, posY,nbToursAvantMortFaim, nbToursAvantMaturite, nbToursEntreDeuxNaissances);
 	}
 	
-	public void doIt(){
+	public void interagir(){
 		seDeplacer();
 		manger();
 		seReproduire();
 		verifierVie();
-		super.doIt();
+		mettreAJourLesNbTours();
 	}
 	public void manger() {
 		List<Agent> agentsAuxAlentours = simulateur.getEnvironnement().getAgentsAuxAlentours(posX,posY);
@@ -49,23 +36,21 @@ public class Requin extends EtreVivant {
 				aMange = true;
 				p.setEnVie(false);
 				simulateur.supprimerAgent(p);
-				this.nbToursAvantMortFaim = this.nbToursAvantMortFaimInitial;
+				resetNbToursAvantMortFaim();
 			}
 		}
 	}
 	public void seReproduire() {
-		int tab[] = simulateur.getEnvironnement().getCaseLibreAuxAlentours(posX,posY);
-		if(peutSeReproduire() && (tab != null)){
-			// Nouveau requin
-			simulateur.ajouterAgent(new Requin(simulateur, tab[0], tab[1],nbToursAvantMaturiteInitial,nbToursEntreDeuxNaissancesInitial,nbToursAvantMortFaimInitial));
+		if (peutSeReproduire()) {
+			int tab[] = simulateur.getEnvironnement().getCaseLibreAuxAlentours(posX,posY);
+			simulateur.ajouterAgent(new Requin(simulateur, tab[0],tab[1], nbToursAvantMaturiteInitial, nbToursEntreDeuxNaissancesInitial, nbToursAvantMortFaimInitial));
 			resetNbToursEntreDeuxNaissances();
 		}
 	}
 	public void verifierVie() {
-		if(nbToursAvantMortFaim == 0) {
+		if(nbToursAvantMortFaim <= 0) {
 			enVie = false;
 			simulateur.supprimerAgent(this);
 		}
-		this.nbToursAvantMortFaim = nbToursAvantMortFaim -1;
 	}
 }

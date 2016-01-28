@@ -59,10 +59,12 @@ public class Simulateur extends Observable {
 		ListIterator<Agent> itAgents = null;
 		Agent agent = null;
 		while (continuer) {
-			agents.removeAll(agentsASupprimer);
-			agentsASupprimer.clear();
+			
 			agents.addAll(agentsAAjouter);
 			agentsAAjouter.clear();
+			agents.removeAll(agentsASupprimer);
+			agentsASupprimer.clear();
+			
 			setChanged();
 			notifyObservers();
 			
@@ -71,20 +73,20 @@ public class Simulateur extends Observable {
 			while (itAgents.hasNext()) {
 				agent = itAgents.next();
 				if (agent instanceof EtreVivant) {
-					if(agent instanceof Poisson){
-						cptPoisson++;
-					}
-					else{
-						cptRequin++;
-					}
 					EtreVivant ev = (EtreVivant) agent;
 					if (ev.estEnVie()) {
-						ev.doIt();
+						ev.interagir();
+						if(agent instanceof Poisson){
+							cptPoisson++;
+						}
+						if (agent instanceof Requin) {
+							cptRequin++;
+						}
 					}
 				} else {
-					agent.doIt();
+					agent.interagir();
 				}
-			}	
+			}
 			if (pauseMS > 0) {
 				try {
 					Thread.sleep(pauseMS);
@@ -92,8 +94,7 @@ public class Simulateur extends Observable {
 					ie.printStackTrace();
 				}
 			}
-			System.out.println("Nbr poissons : " + cptPoisson);
-			System.out.println("Nbr requins : " + cptRequin);
+			System.out.println(cptPoisson+";"+cptRequin);
 			cptRequin = 0;
 			cptPoisson = 0;
 			itAgents = null;
@@ -114,23 +115,23 @@ public class Simulateur extends Observable {
 		return continuer = false;
 	}
 	public static void main(String args[]) {
-		Simulateur s = new Simulateur(100,100,6,30,true);
-		for (int i=0; i < 200; i++ ){
+		Simulateur s = new Simulateur(200,100,6,50,true);
+		for (int i=0; i < 100; i++ ){
 			s.ajouterAgent(
 					new Poisson(
 							s, // simulateur
-							10, // délais maturité
-							10 // délais entre deux naissances
+							20, // délais maturité
+							8 // délais entre deux naissances
 					)
 			);
 		}
-		for (int i=0; i < 10; i++ ){
+		for (int i=0; i < 20; i++){
 			s.ajouterAgent(
 					new Requin(
 							s, // simulateur
 							50, // délais maturité
-							12, // délais entre deux naissances
-							25 // délais mort sans manger
+							15, // délais entre deux naissances
+							30 // délais mort sans manger
 					)
 			);
 		}
