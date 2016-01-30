@@ -1,4 +1,4 @@
-package vues.environnements;
+package vues;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,11 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
-import modeles.agents.Agent;
-import modeles.agents.Bille;
-import modeles.agents.Poisson;
-import modeles.agents.Requin;
 import modeles.environnements.Environnement;
+import modeles.environnements.elements.ElementEnvironnement;
+import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.agents.Bille;
+import modeles.environnements.elements.agents.Poisson;
+import modeles.environnements.elements.agents.Requin;
 
 public class VueEnvironnement extends JPanel implements Observer {
 	
@@ -42,7 +43,7 @@ public class VueEnvironnement extends JPanel implements Observer {
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		Agent grille[][] = environnement.getGrille();
+		ElementEnvironnement grille[][] = environnement.getGrille();
 		int xDeb = (int)(tailleCellule/2);
 		int yDeb = (int)(tailleCellule/2);
 		int x = 0;

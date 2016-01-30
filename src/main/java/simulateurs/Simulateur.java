@@ -1,12 +1,12 @@
 package simulateurs;
-import modeles.agents.Agent;
-import modeles.agents.Bille;
-import modeles.agents.Direction;
-import modeles.agents.EtreVivant;
-import modeles.agents.Poisson;
-import modeles.agents.Requin;
 import modeles.environnements.Environnement;
-import vues.environnements.VueSimulateur;
+import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.agents.Bille;
+import modeles.environnements.elements.agents.Direction;
+import modeles.environnements.elements.agents.EtreVivant;
+import modeles.environnements.elements.agents.Poisson;
+import modeles.environnements.elements.agents.Requin;
+import vues.VueSimulateur;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -103,12 +103,12 @@ public class Simulateur extends Observable {
 	
 	public void ajouterAgent(Agent agent) {
 		agentsAAjouter.add(agent);
-		environnement.mettreAgent(agent);
+		environnement.mettreElementEnvironnement(agent);
 	}
 	
 	public void supprimerAgent(Agent agent) {
 		agentsASupprimer.add(agent);
-		environnement.enleverAgent(agent);
+		environnement.enleverElementEnvironnement(agent);
 	}
 	
 	public boolean arreterSimulation(){

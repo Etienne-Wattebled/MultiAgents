@@ -1,4 +1,4 @@
-package vues.environnements;
+package vues;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

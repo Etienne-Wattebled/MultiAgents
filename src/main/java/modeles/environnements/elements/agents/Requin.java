@@ -1,10 +1,11 @@
-package modeles.agents;
+package modeles.environnements.elements.agents;
 
 import java.util.List;
 import java.util.ListIterator;
 
 import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
+import modeles.environnements.elements.ElementEnvironnement;
 
 public class Requin extends EtreVivant {
 	
@@ -24,15 +25,15 @@ public class Requin extends EtreVivant {
 		mettreAJourLesNbTours();
 	}
 	public void manger() {
-		List<Agent> agentsAuxAlentours = simulateur.getEnvironnement().getAgentsAuxAlentours(posX,posY);
-		ListIterator<Agent> itAgentsAuxAlentours = agentsAuxAlentours.listIterator();
+		List<ElementEnvironnement> elementsAuxAlentours = simulateur.getEnvironnement().getElementsEnvironnementAuxAlentours(posX,posY);
+		ListIterator<ElementEnvironnement> itElementsAuxAlentours = elementsAuxAlentours.listIterator();
 		boolean aMange = false;
-		Agent a = null;
+		ElementEnvironnement e = null;
 		
-		while (itAgentsAuxAlentours.hasNext() && !aMange) {
-			a = itAgentsAuxAlentours.next();
-			if (a instanceof Poisson) {
-				Poisson p = (Poisson) a;
+		while (itElementsAuxAlentours.hasNext() && !aMange) {
+			e = itElementsAuxAlentours.next();
+			if (e instanceof Poisson) {
+				Poisson p = (Poisson) e;
 				aMange = true;
 				p.setEnVie(false);
 				simulateur.supprimerAgent(p);

@@ -1,18 +1,15 @@
-package modeles.agents;
+package modeles.environnements.elements.agents;
 
 import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
+import modeles.environnements.elements.ElementEnvironnement;
 
-public abstract class Agent {
-	protected int posX;
-	protected int posY;
-	
+public abstract class Agent extends ElementEnvironnement {
 	protected Direction direction;
 	protected Simulateur simulateur;
 	
 	public Agent(Simulateur simulateur, int posX, int posY, Direction direction) {
-		this.posX = posX;
-		this.posY = posY;
+		super(posX,posY);
 		this.direction = direction;
 		this.simulateur = simulateur;
 	}
@@ -31,6 +28,7 @@ public abstract class Agent {
 	 * @param environnement
 	 */
 	public Agent(Simulateur simulateur) {
+		super();
 		this.simulateur = simulateur;
 		if (simulateur != null) {
 			Environnement environnement = simulateur.getEnvironnement();
@@ -61,12 +59,12 @@ public abstract class Agent {
 	public void seDeplacer(int x, int y) {
 		Environnement environnement = simulateur.getEnvironnement();
 		if (environnement != null) {
-			environnement.enleverAgent(this);
+			environnement.enleverElementEnvironnement(this);
 		}
 		this.posX = x;
 		this.posY = y;
 		if (environnement != null) {
-			environnement.mettreAgent(this);
+			environnement.mettreElementEnvironnement(this);
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package modeles.agents;
+package modeles.environnements.elements.agents;
 
 public enum Direction {
 	NORD,

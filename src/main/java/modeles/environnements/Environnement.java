@@ -3,19 +3,20 @@ package modeles.environnements;
 import java.util.LinkedList;
 import java.util.List;
 
-import modeles.agents.Agent;
+import modeles.environnements.elements.ElementEnvironnement;
+import modeles.environnements.elements.agents.Agent;
 
 public class Environnement {
 	private int nbColonnes;
 	private int nbLignes;
 	private boolean torique;
 	
-	private Agent[][] grille;
+	private ElementEnvironnement[][] grille;
 
 	public Environnement(int nbColonnes, int nbLignes) {
 		this.nbLignes = nbLignes;
 		this.nbColonnes = nbColonnes;
-		this.grille = new Agent[nbColonnes][nbLignes];
+		this.grille = new ElementEnvironnement[nbColonnes][nbLignes];
 		this.torique = false;
 	}
 	public Environnement(int longueur, int hauteur, boolean torique) {
@@ -33,14 +34,18 @@ public class Environnement {
 		else { return nbLignes - Math.abs(yTorique); }
 	}
 	
-	public Agent getAgent(int x, int y) { 
+	public ElementEnvironnement getElementEnvironnement(int x, int y) {
+		if (torique) {
+			x = getX(x);
+			y = getY(y);
+		}
 		if (existeCase(x,y)) { return grille[x][y]; }
 		return null;
 	}
 	
 	public int getNbColonnes() { return nbColonnes; }
 	public int getNbLignes() { return nbLignes; }
-	public Agent[][] getGrille() { return grille; }
+	public ElementEnvironnement[][] getGrille() { return grille; }
 	
 	/**
 	 * 
@@ -65,20 +70,24 @@ public class Environnement {
 		return !existeCase(x,y) || grille[x][y] != null;
 	}
 
-	public void mettreAgent(Agent agent) {
+	public boolean mettreElementEnvironnement(ElementEnvironnement element) {
 		if (torique) {
-			agent.setPosX(getX(agent.getPosX()));
-			agent.setPosY(getY(agent.getPosY()));
+			element.setPosX(getX(element.getPosX()));
+			element.setPosY(getY(element.getPosY()));
 		}
-		if (existeCase(agent.getPosX(),agent.getPosY())) {	
-			grille[agent.getPosX()][agent.getPosY()] = agent;
+		if (!aUnObstacle(element.getPosX(), element.getPosY()) && existeCase(element.getPosX(),element.getPosY())) {	
+			grille[element.getPosX()][element.getPosY()] = element;
+			return true;
 		}
+		return false;
 	}
 	
-	public void enleverAgent(Agent agent) {
-		if (existeCase(agent.getPosX(),agent.getPosY())) {
-			grille[agent.getPosX()][agent.getPosY()] = null;
+	public boolean enleverElementEnvironnement(ElementEnvironnement element) {
+		if (existeCase(element.getPosX(),element.getPosY()) && aUnObstacle(element.getPosX(), element.getPosY())) {
+			grille[element.getPosX()][element.getPosY()] = null;
+			return true;
 		}
+		return false;
 	}
 	/**
 	 * Retourne les coordonnées d'une seule case libre si elle existe
@@ -103,8 +112,8 @@ public class Environnement {
 		}
 		return null;
 	}
-	public List<Agent> getAgentsAuxAlentours(int x, int y) {
-		LinkedList<Agent> agents = new LinkedList<Agent>();
+	public List<ElementEnvironnement> getElementsEnvironnementAuxAlentours(int x, int y) {
+		LinkedList<ElementEnvironnement> elements = new LinkedList<ElementEnvironnement>();
 		int xp,yp; // périphérie
 		for (int i = -1; i<=1;i++) {
 			for (int j =-1;j<=1;j++) {
@@ -114,12 +123,12 @@ public class Environnement {
 					xp = getX(xp);
 					yp = getY(yp);
 				}
-				if ((aUnObstacle(xp,yp)) && (existeCase(xp,yp)) && (xp!=x) && (yp != y) && (grille[xp][yp] instanceof Agent)) {
-					agents.add(grille[xp][yp]);
+				if ((aUnObstacle(xp,yp)) && (existeCase(xp,yp)) && (xp!=x) && (yp != y)) {
+					elements.add(grille[xp][yp]);
 				}
 			}
 		}
-		return agents;
+		return elements;
 	}
 	/** 
 	 * Retourne une case libre aléatoirement, null si non trouvée.
