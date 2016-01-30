@@ -16,6 +16,7 @@ import modeles.environnements.elements.agents.Agent;
 import modeles.environnements.elements.agents.Bille;
 import modeles.environnements.elements.agents.Poisson;
 import modeles.environnements.elements.agents.Requin;
+import modeles.environnements.elements.blocs.Bloc;
 
 public class VueEnvironnement extends JPanel implements Observer {
 	
@@ -64,6 +65,10 @@ public class VueEnvironnement extends JPanel implements Observer {
 					}
 					else if (grille[x][y] instanceof Poisson) {
 						g.setColor(Color.RED);
+						g.fillOval(i, j, tailleCellule, tailleCellule);
+					}
+					else if (grille[x][y] instanceof Bloc) {
+						g.setColor(Color.orange);
 						g.fillOval(i, j, tailleCellule, tailleCellule);
 					}
 				}

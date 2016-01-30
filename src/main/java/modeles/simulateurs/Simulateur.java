@@ -26,8 +26,8 @@ public class Simulateur extends Observable {
 	private LinkedList<Agent> agentsAAjouter;
 	private LinkedList<Agent> agentsASupprimer;
 	
-	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique) {
-		this.environnement = new Environnement(nbColonnes,nbLignes,torique);
+	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique, int nbBlocs) {
+		this.environnement = new Environnement(nbColonnes,nbLignes,torique,nbBlocs);
 		this.agents = new LinkedList<Agent>();
 		this.pauseMS = pauseMS;
 		this.continuer = true;
@@ -37,8 +37,11 @@ public class Simulateur extends Observable {
 		
 		new VueSimulateur(this, tailleCellule);
 	}
+	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique) {
+		this(nbColonnes,nbLignes,tailleCellule,pauseMS,torique,0);
+	}
 	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule) {
-		this(nbColonnes,nbLignes,500, tailleCellule,false);
+		this(nbColonnes,nbLignes,500, tailleCellule,false,0);
 	}
 	
 	public Environnement getEnvironnement() {

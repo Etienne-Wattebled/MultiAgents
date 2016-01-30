@@ -5,23 +5,40 @@ import java.util.List;
 
 import modeles.environnements.elements.ElementEnvironnement;
 import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.blocs.Bloc;
 
 public class Environnement {
-	private int nbColonnes;
-	private int nbLignes;
-	private boolean torique;
+	protected int nbColonnes;
+	protected int nbLignes;
+	protected boolean torique;
+	protected int nbBlocs;
 	
 	private ElementEnvironnement[][] grille;
 
-	public Environnement(int nbColonnes, int nbLignes) {
-		this.nbLignes = nbLignes;
+	public Environnement(int nbColonnes, int nbLignes, boolean torique, int nbBlocs) {
 		this.nbColonnes = nbColonnes;
-		this.grille = new ElementEnvironnement[nbColonnes][nbLignes];
-		this.torique = false;
-	}
-	public Environnement(int longueur, int hauteur, boolean torique) {
-		this(longueur,hauteur);
+		this.nbLignes = nbLignes;
 		this.torique = torique;
+		this.nbBlocs = nbBlocs;
+		this.grille = new ElementEnvironnement[nbColonnes][nbLignes];
+		genererBlocs();
+	}
+	
+	public Environnement(int nbColonnes, int nbLignes) {
+		this(nbColonnes,nbLignes,false,0);
+	}
+	public Environnement(int nbColonnes, int nbLignes, boolean torique) {
+		this(nbColonnes,nbLignes,torique,0);
+	}
+	
+	private void genererBlocs() {
+		int tab[] = null;
+		for (int i=1;i<=nbBlocs;i++) {
+			tab = getCaseLibreAleatoire();
+			if (tab != null) {
+				grille[tab[0]][tab[1]] = new Bloc(tab[0],tab[1]);
+			}
+		}
 	}
 	
 	// Convertir torique => coordonnées tableau
@@ -132,7 +149,7 @@ public class Environnement {
 	}
 	/** 
 	 * Retourne une case libre aléatoirement, null si non trouvée.
-	 * Fait nbCases tentatives.
+	 * Fait nbCases tentatives dans le pire des cas.
 	 * @return les coordonnées d'une case libre aléatoirement, null si ne parvient pas à trouver.
 	 */
 	public int[] getCaseLibreAleatoire() {
