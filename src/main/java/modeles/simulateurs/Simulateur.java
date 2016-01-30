@@ -1,6 +1,8 @@
 package modeles.simulateurs;
 import modeles.environnements.Environnement;
+import modeles.environnements.EnvironnementAvatarChasseurs;
 import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.agents.Avatar;
 import modeles.environnements.elements.agents.Bille;
 import modeles.environnements.elements.agents.Direction;
 import modeles.environnements.elements.agents.EtreVivant;
@@ -18,6 +20,7 @@ public class Simulateur extends Observable {
 	private Environnement environnement;
 	private int pauseMS;
 	private boolean continuer;
+	private boolean dejaAvatar;
 	
 	private int cptPoisson = 0;
 	private int cptRequin = 0;
@@ -34,6 +37,7 @@ public class Simulateur extends Observable {
 		
 		this.agentsAAjouter = new LinkedList<Agent>();
 		this.agentsASupprimer = new LinkedList<Agent>();
+		this.dejaAvatar = false;
 		
 		new VueSimulateur(this, tailleCellule);
 	}
@@ -62,6 +66,12 @@ public class Simulateur extends Observable {
 	public void lancerSimulation() {
 		ListIterator<Agent> itAgents = null;
 		Agent agent = null;
+		
+		EnvironnementAvatarChasseurs eac = null;
+		if (environnement instanceof EnvironnementAvatarChasseurs) {
+			eac = (EnvironnementAvatarChasseurs) environnement;
+		}
+		
 		while (continuer) {
 			
 			agents.addAll(agentsAAjouter);
@@ -72,10 +82,16 @@ public class Simulateur extends Observable {
 			setChanged();
 			notifyObservers();
 			
+			if (eac != null) {
+				eac.mettreAJour();
+			}
+			
 			Collections.shuffle(agents);
 			itAgents = agents.listIterator();
+			
 			while (itAgents.hasNext()) {
 				agent = itAgents.next();
+				
 				if (agent instanceof EtreVivant) {
 					EtreVivant ev = (EtreVivant) agent;
 					if (ev.estEnVie()) {
@@ -107,11 +123,21 @@ public class Simulateur extends Observable {
 	}
 	
 	public void ajouterAgent(Agent agent) {
+		if (agent instanceof Avatar) {
+			if(this.dejaAvatar) {
+				return ;
+			} else {
+				this.dejaAvatar = true;
+			}
+		}
 		agentsAAjouter.add(agent);
 		environnement.mettreElementEnvironnement(agent);
 	}
 	
 	public void supprimerAgent(Agent agent) {
+		if (agent instanceof Avatar) {
+			this.dejaAvatar = false;
+		}
 		agentsASupprimer.add(agent);
 		environnement.enleverElementEnvironnement(agent);
 	}

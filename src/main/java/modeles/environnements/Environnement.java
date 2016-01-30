@@ -31,7 +31,7 @@ public class Environnement {
 		this(nbColonnes,nbLignes,torique,0);
 	}
 	
-	private void genererBlocs() {
+	protected void genererBlocs() {
 		int tab[] = null;
 		for (int i=1;i<=nbBlocs;i++) {
 			tab = getCaseLibreAleatoire();
@@ -42,11 +42,11 @@ public class Environnement {
 	}
 	
 	// Convertir torique => coordonnées tableau
-	private int getX(int xTorique) {
+	protected int getX(int xTorique) {
 		if (xTorique >= 0) {  return xTorique%nbColonnes; }
 		else { return nbColonnes - Math.abs(xTorique); }
 	}
-	private int getY(int yTorique) {
+	protected int getY(int yTorique) {
 		if (yTorique >= 0) { return yTorique%nbLignes; }
 		else { return nbLignes - Math.abs(yTorique); }
 	}
