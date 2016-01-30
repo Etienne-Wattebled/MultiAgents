@@ -1,4 +1,4 @@
-package modeles.agents;
+package modeles.environnements.elements.agents;
 
 import simulateurs.Simulateur;
 
