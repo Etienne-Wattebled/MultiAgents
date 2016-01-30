@@ -14,6 +14,7 @@ public class Environnement {
 	protected int nbBlocs;
 	
 	private ElementEnvironnement[][] grille;
+	private String boite;
 
 	public Environnement(int nbColonnes, int nbLignes, boolean torique, int nbBlocs) {
 		this.nbColonnes = nbColonnes;
@@ -165,5 +166,13 @@ public class Environnement {
 		} else {
 			return new int[] {xa,ya};
 		}
+	}
+	
+	public String getBoite(){
+		return boite;
+	}
+	
+	public void setBoite(String boite){
+		this.boite = boite;
 	}
 }

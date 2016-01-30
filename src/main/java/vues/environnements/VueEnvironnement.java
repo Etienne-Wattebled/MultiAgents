@@ -13,6 +13,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import modeles.environnements.Environnement;
 import modeles.environnements.elements.ElementEnvironnement;
 import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.agents.Avatar;
 import modeles.environnements.elements.agents.Bille;
 import modeles.environnements.elements.agents.Poisson;
 import modeles.environnements.elements.agents.Requin;
@@ -69,6 +70,10 @@ public class VueEnvironnement extends JPanel implements Observer {
 					}
 					else if (grille[x][y] instanceof Bloc) {
 						g.setColor(Color.orange);
+						g.fillOval(i, j, tailleCellule, tailleCellule);
+					}
+					else if (grille[x][y] instanceof Avatar) {
+						g.setColor(Color.BLUE);
 						g.fillOval(i, j, tailleCellule, tailleCellule);
 					}
 				}
