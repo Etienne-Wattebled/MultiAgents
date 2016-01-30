@@ -1,7 +1,7 @@
 package modeles.environnements.elements.agents;
 
-import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
+import modeles.simulateurs.Simulateur;
 
 public class Poisson extends EtreVivant{
 	public Poisson(Simulateur simulateur,int nbToursAvantMaturite, int nbToursEntreDeuxNaissance) {

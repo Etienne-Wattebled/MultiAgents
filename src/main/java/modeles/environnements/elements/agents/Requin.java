@@ -3,9 +3,9 @@ package modeles.environnements.elements.agents;
 import java.util.List;
 import java.util.ListIterator;
 
-import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
 import modeles.environnements.elements.ElementEnvironnement;
+import modeles.simulateurs.Simulateur;
 
 public class Requin extends EtreVivant {
 	

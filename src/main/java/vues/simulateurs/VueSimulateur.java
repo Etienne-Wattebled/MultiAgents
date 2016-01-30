@@ -7,7 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import simulateurs.Simulateur;
+import modeles.simulateurs.Simulateur;
 import vues.environnements.VueEnvironnement;
 import vues.environnements.VueMenuEnvironnement;
 

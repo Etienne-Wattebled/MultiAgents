@@ -1,6 +1,6 @@
 package modeles.environnements.elements.agents;
 
-import simulateurs.Simulateur;
+import modeles.simulateurs.Simulateur;
 
 public class Bille extends Agent {
 	public Bille(Simulateur simulateur, int posX, int posY, Direction direction) {

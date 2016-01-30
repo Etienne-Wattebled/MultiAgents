@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import simulateurs.Simulateur;
+import modeles.simulateurs.Simulateur;
 
 public class VueMenuEnvironnement extends JPanel {
 	private Simulateur simulateur;

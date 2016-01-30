@@ -1,8 +1,8 @@
 package modeles.environnements.elements.agents;
 
-import simulateurs.Simulateur;
 import modeles.environnements.Environnement;
 import modeles.environnements.elements.ElementEnvironnement;
+import modeles.simulateurs.Simulateur;
 
 public abstract class Agent extends ElementEnvironnement {
 	protected Direction direction;

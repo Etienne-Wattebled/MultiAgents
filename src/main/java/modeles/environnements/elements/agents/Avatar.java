@@ -1,6 +1,6 @@
 package modeles.environnements.elements.agents;
 
-import simulateurs.Simulateur;
+import modeles.simulateurs.Simulateur;
 
 public class Avatar extends Agent{
 	public Avatar(Simulateur simulateur, int posX, int posY, Direction direction) {
