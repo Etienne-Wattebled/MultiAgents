@@ -1,4 +1,4 @@
-package vues;
+package vues.simulateurs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import simulateurs.Simulateur;
+import vues.environnements.VueEnvironnement;
+import vues.environnements.VueMenuEnvironnement;
 
 public class VueSimulateur extends JFrame {
 	private VueEnvironnement vueEnvironnement;

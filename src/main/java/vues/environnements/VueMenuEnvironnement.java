@@ -1,4 +1,4 @@
-package vues;
+package vues.environnements;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

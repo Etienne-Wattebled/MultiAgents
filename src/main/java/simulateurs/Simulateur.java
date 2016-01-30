@@ -6,7 +6,7 @@ import modeles.environnements.elements.agents.Direction;
 import modeles.environnements.elements.agents.EtreVivant;
 import modeles.environnements.elements.agents.Poisson;
 import modeles.environnements.elements.agents.Requin;
-import vues.VueSimulateur;
+import vues.simulateurs.VueSimulateur;
 
 import java.util.Collections;
 import java.util.LinkedList;

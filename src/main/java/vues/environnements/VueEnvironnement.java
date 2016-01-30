@@ -1,4 +1,4 @@
-package vues;
+package vues.environnements;
 
 import java.awt.Color;
 import java.awt.Graphics;
