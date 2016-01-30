@@ -21,6 +21,7 @@ public class Simulateur extends Observable {
 	
 	private int cptPoisson = 0;
 	private int cptRequin = 0;
+	private int cptTour = 1;
 	
 	private LinkedList<Agent> agentsAAjouter;
 	private LinkedList<Agent> agentsASupprimer;
@@ -94,7 +95,8 @@ public class Simulateur extends Observable {
 					ie.printStackTrace();
 				}
 			}
-			System.out.println(cptPoisson+";"+cptRequin);
+			System.out.println(cptTour+";"+cptPoisson+";"+cptRequin);
+			cptTour++;
 			cptRequin = 0;
 			cptPoisson = 0;
 			itAgents = null;
