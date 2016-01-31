@@ -59,16 +59,20 @@ public class Simulateur extends Observable {
 		this.pauseMS = pause;
 	}
 	
+	public void mettreAJourAgents() {
+		agents.addAll(agentsAAjouter);
+		agentsAAjouter.clear();
+		agents.removeAll(agentsASupprimer);
+		agentsASupprimer.clear();
+	}
+	
 	public void lancerSimulation() {
 		ListIterator<Agent> itAgents = null;
 		Agent agent = null;
 		
 		while (continuer) {
 			
-			agents.addAll(agentsAAjouter);
-			agentsAAjouter.clear();
-			agents.removeAll(agentsASupprimer);
-			agentsASupprimer.clear();
+			mettreAJourAgents();
 			
 			setChanged();
 			notifyObservers();
@@ -116,6 +120,9 @@ public class Simulateur extends Observable {
 			cptPoisson = 0;
 			itAgents = null;
 		}
+		mettreAJourAgents();
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void ajouterAgent(Agent agent) {

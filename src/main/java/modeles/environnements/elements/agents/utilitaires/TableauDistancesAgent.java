@@ -42,7 +42,6 @@ public class TableauDistancesAgent {
 			int x = agent.getPosX();
 			int y = agent.getPosY();
 			
-			grilleDistances[x][y] = Integer.MAX_VALUE;
 			List<Case> cases = getCasesLibresNonNumeroteesAuxAlentoursEtNumeroterVoisins(x,y,1);
 			List<Case> cases2 = new LinkedList<Case>();
 			boolean continuer = true;
