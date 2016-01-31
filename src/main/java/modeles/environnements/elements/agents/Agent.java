@@ -2,6 +2,7 @@ package modeles.environnements.elements.agents;
 
 import modeles.environnements.Environnement;
 import modeles.environnements.elements.ElementEnvironnement;
+import modeles.environnements.elements.agents.utilitaires.Direction;
 import modeles.simulateurs.Simulateur;
 
 public abstract class Agent extends ElementEnvironnement {
@@ -12,6 +13,7 @@ public abstract class Agent extends ElementEnvironnement {
 		super(posX,posY);
 		this.direction = direction;
 		this.simulateur = simulateur;
+		this.direction = Direction.getRandomDirection();
 	}
 	/**
 	 * Crée un agent avec une direction aléatoire

@@ -5,6 +5,7 @@ import java.util.List;
 
 import modeles.environnements.elements.ElementEnvironnement;
 import modeles.environnements.elements.agents.Agent;
+import modeles.environnements.elements.agents.Avatar;
 import modeles.environnements.elements.blocs.Bloc;
 
 public class Environnement {
@@ -13,8 +14,9 @@ public class Environnement {
 	protected boolean torique;
 	protected int nbBlocs;
 	
+	protected Avatar avatar;
+	
 	private ElementEnvironnement[][] grille;
-	private String boite;
 
 	public Environnement(int nbColonnes, int nbLignes, boolean torique, int nbBlocs) {
 		this.nbColonnes = nbColonnes;
@@ -43,11 +45,11 @@ public class Environnement {
 	}
 	
 	// Convertir torique => coordonnées tableau
-	protected int getX(int xTorique) {
+	public int getX(int xTorique) {
 		if (xTorique >= 0) {  return xTorique%nbColonnes; }
 		else { return nbColonnes - Math.abs(xTorique); }
 	}
-	protected int getY(int yTorique) {
+	public int getY(int yTorique) {
 		if (yTorique >= 0) { return yTorique%nbLignes; }
 		else { return nbLignes - Math.abs(yTorique); }
 	}
@@ -94,6 +96,12 @@ public class Environnement {
 			element.setPosY(getY(element.getPosY()));
 		}
 		if (!aUnObstacle(element.getPosX(), element.getPosY()) && existeCase(element.getPosX(),element.getPosY())) {	
+			if (element instanceof Avatar) {
+				if (this.avatar != null) {
+					enleverElementEnvironnement(this.avatar);
+				}
+				this.avatar = (Avatar) element;
+			}
 			grille[element.getPosX()][element.getPosY()] = element;
 			return true;
 		}
@@ -103,6 +111,9 @@ public class Environnement {
 	public boolean enleverElementEnvironnement(ElementEnvironnement element) {
 		if (existeCase(element.getPosX(),element.getPosY()) && aUnObstacle(element.getPosX(), element.getPosY())) {
 			grille[element.getPosX()][element.getPosY()] = null;
+			if (element instanceof Avatar) {
+				this.avatar = null;
+			}
 			return true;
 		}
 		return false;
@@ -154,7 +165,7 @@ public class Environnement {
 	 * @return les coordonnées d'une case libre aléatoirement, null si ne parvient pas à trouver.
 	 */
 	public int[] getCaseLibreAleatoire() {
-		int xa=-1, ya=-1;
+		int xa=(int)(Math.random()*nbColonnes), ya=(int)(Math.random()*nbLignes);
 		int nbTentatives = nbColonnes*nbLignes;
 		while (aUnObstacle(xa, ya) && (nbTentatives > 0)) {
 			xa = (int)(Math.random()*nbColonnes);
@@ -168,11 +179,10 @@ public class Environnement {
 		}
 	}
 	
-	public String getBoite(){
-		return boite;
+	public Avatar getAvatar() {
+		return avatar;
 	}
-	
-	public void setBoite(String boite){
-		this.boite = boite;
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
 	}
 }

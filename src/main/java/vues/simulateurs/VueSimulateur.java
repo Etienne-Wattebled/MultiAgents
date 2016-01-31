@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import modeles.environnements.elements.agents.utilitaires.Direction;
 import modeles.simulateurs.Simulateur;
 import vues.environnements.VueEnvironnement;
 import vues.environnements.VueMenuEnvironnement;
@@ -17,27 +18,32 @@ public class VueSimulateur extends JFrame implements KeyListener{
 	private VueEnvironnement vueEnvironnement;
 	private VueMenuEnvironnement vueMenuEnvironnement;
 	
-	public String boite = "";
+	public Direction directionClavier;
 	
-	public VueSimulateur(Simulateur simulateur, int tailleCellule) {
+	public VueSimulateur(Simulateur simulateur, int tailleCellule, boolean menu) {
 		this.vueEnvironnement = new VueEnvironnement(simulateur.getEnvironnement(),tailleCellule);
-		this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur,tailleCellule);
 		
 		this.setLayout(new BorderLayout());
 		
 		simulateur.addObserver(vueEnvironnement);
-		
 		this.add(vueEnvironnement,BorderLayout.CENTER);
-		//this.add(vueMenuEnvironnement,BorderLayout.SOUTH);
 		
-		this.setSize(
-				vueEnvironnement.getLongueur()+vueMenuEnvironnement.getLongueur(),
-				vueEnvironnement.getHauteur()+vueMenuEnvironnement.getHauteur()
-		);
+		if (menu) {
+			this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur,tailleCellule);
+			this.add(vueMenuEnvironnement,BorderLayout.SOUTH);
+			this.setSize(
+					vueEnvironnement.getLongueur()+vueMenuEnvironnement.getLongueur(),
+					vueEnvironnement.getHauteur()+vueMenuEnvironnement.getHauteur()
+			);
+		} else {
+			this.setSize(vueEnvironnement.getLongueur(),vueEnvironnement.getHauteur());
+		}
+		
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
+		this.directionClavier = Direction.getRandomDirection();
 		
 		this.addKeyListener(this);
 	}
@@ -45,39 +51,37 @@ public class VueSimulateur extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
 		if(keyCode == KeyEvent.VK_NUMPAD4){
-			this.boite = "gauche";
+			this.directionClavier = Direction.OUEST;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD6){
-			this.boite = "droite";
+			this.directionClavier = Direction.EST;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD8){
-			this.boite = "haut";
+			this.directionClavier = Direction.NORD;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD2){
-			this.boite = "bas";
+			this.directionClavier = Direction.SUD;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD1){
-			this.boite = "basGauche";
+			this.directionClavier = Direction.SUD_OUEST;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD3){
-			this.boite = "basDroite";
+			this.directionClavier = Direction.SUD_EST;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD7){
-			this.boite = "hautGauche";
+			this.directionClavier = Direction.NORD_OUEST;
 		}
 		else if(keyCode == KeyEvent.VK_NUMPAD9){
-			this.boite = "hautDroite";
+			this.directionClavier = Direction.NORD_EST;
 		}
-		System.out.println("boite = " + this.boite);
 	}
 	
-	public void keyReleased(KeyEvent k) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent k) {		
 	}
 	
-	public void keyTyped(KeyEvent k) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent k) {		
+	}
+	public Direction getDirectionClavier() {
+		return directionClavier;
 	}
 }

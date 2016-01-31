@@ -1,6 +1,5 @@
 package modeles.environnements.elements.agents;
 
-import modeles.environnements.Environnement;
 import modeles.simulateurs.Simulateur;
 
 public class Poisson extends EtreVivant{

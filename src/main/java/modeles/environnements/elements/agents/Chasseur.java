@@ -3,29 +3,43 @@ package modeles.environnements.elements.agents;
 import java.util.List;
 
 import modeles.environnements.Environnement;
-import modeles.environnements.EnvironnementAvatarChasseurs;
 import modeles.environnements.elements.ElementEnvironnement;
+import modeles.environnements.elements.agents.utilitaires.Direction;
+import modeles.environnements.elements.agents.utilitaires.TableauDistancesAgent;
 import modeles.simulateurs.Simulateur;
 
 public class Chasseur extends Agent{
-	public Chasseur(Simulateur simulateur, int posX, int posY, Direction direction) {
+	protected TableauDistancesAgent tableauDistancesAvatar;
+	
+	public Chasseur(Simulateur simulateur, int posX, int posY, Direction direction, TableauDistancesAgent tableauDistancesAvatar) {
 		super(simulateur,posX,posY,direction);
+		this.tableauDistancesAvatar = tableauDistancesAvatar;
+	}
+	public Chasseur(Simulateur simulateur, TableauDistancesAgent tableauDistancesAvatar) {
+		super(simulateur);
+		this.tableauDistancesAvatar = tableauDistancesAvatar;
 	}
 	
 	public void interagir(){
 		Environnement environnement = simulateur.getEnvironnement();
-		if ((environnement != null) && (environnement instanceof EnvironnementAvatarChasseurs)) {
+		if (environnement != null) {
 			List<ElementEnvironnement> list = environnement.getElementsEnvironnementAuxAlentours(posX,posY);
 			for (ElementEnvironnement e : list) {
 				if (e instanceof Avatar) {
+					((Avatar) e).setAEteAttrape(true);
 					simulateur.supprimerAgent((Avatar)e);
 					simulateur.arreterSimulation();
 					return;
 				}
 			}
-			
-			EnvironnementAvatarChasseurs eac = (EnvironnementAvatarChasseurs) environnement;
-			direction = eac.getDirectionVersAvatar(posX,posY);
+			if (simulateur.getCptTour() != tableauDistancesAvatar.getNumToursDerniereMiseAJour()) {
+				tableauDistancesAvatar.mettreAJour();
+				tableauDistancesAvatar.setNumToursDerniereMiseAJour(simulateur.getCptTour());
+			}
+			direction = tableauDistancesAvatar.getDirectionVersAgent(posX,posY);
+			seDeplacer();
 		}
 	}
+
+
 }

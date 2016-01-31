@@ -1,10 +1,7 @@
 package modeles.simulateurs;
 import modeles.environnements.Environnement;
-import modeles.environnements.EnvironnementAvatarChasseurs;
 import modeles.environnements.elements.agents.Agent;
 import modeles.environnements.elements.agents.Avatar;
-import modeles.environnements.elements.agents.Bille;
-import modeles.environnements.elements.agents.Direction;
 import modeles.environnements.elements.agents.EtreVivant;
 import modeles.environnements.elements.agents.Poisson;
 import modeles.environnements.elements.agents.Requin;
@@ -18,9 +15,10 @@ import java.util.Observable;
 public class Simulateur extends Observable {
 	private LinkedList<Agent> agents;
 	private Environnement environnement;
+	
 	private int pauseMS;
 	private boolean continuer;
-	private boolean dejaAvatar;
+	private VueSimulateur vueSimulateur;
 	
 	private int cptPoisson = 0;
 	private int cptRequin = 0;
@@ -29,7 +27,7 @@ public class Simulateur extends Observable {
 	private LinkedList<Agent> agentsAAjouter;
 	private LinkedList<Agent> agentsASupprimer;
 	
-	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique, int nbBlocs) {
+	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique, int nbBlocs, boolean menu) {
 		this.environnement = new Environnement(nbColonnes,nbLignes,torique,nbBlocs);
 		this.agents = new LinkedList<Agent>();
 		this.pauseMS = pauseMS;
@@ -37,15 +35,13 @@ public class Simulateur extends Observable {
 		
 		this.agentsAAjouter = new LinkedList<Agent>();
 		this.agentsASupprimer = new LinkedList<Agent>();
-		this.dejaAvatar = false;
-		
-		new VueSimulateur(this, tailleCellule);
+		this.vueSimulateur = new VueSimulateur(this, tailleCellule,menu);
 	}
 	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule, int pauseMS, boolean torique) {
-		this(nbColonnes,nbLignes,tailleCellule,pauseMS,torique,0);
+		this(nbColonnes,nbLignes,tailleCellule,pauseMS,torique,0,true);
 	}
 	public Simulateur(int nbColonnes, int nbLignes, int tailleCellule) {
-		this(nbColonnes,nbLignes,500, tailleCellule,false,0);
+		this(nbColonnes,nbLignes,500, tailleCellule,false,0,true);
 	}
 	
 	public Environnement getEnvironnement() {
@@ -67,11 +63,6 @@ public class Simulateur extends Observable {
 		ListIterator<Agent> itAgents = null;
 		Agent agent = null;
 		
-		EnvironnementAvatarChasseurs eac = null;
-		if (environnement instanceof EnvironnementAvatarChasseurs) {
-			eac = (EnvironnementAvatarChasseurs) environnement;
-		}
-		
 		while (continuer) {
 			
 			agents.addAll(agentsAAjouter);
@@ -82,16 +73,12 @@ public class Simulateur extends Observable {
 			setChanged();
 			notifyObservers();
 			
-			if (eac != null) {
-				eac.mettreAJour();
-			}
-			
 			Collections.shuffle(agents);
 			itAgents = agents.listIterator();
 			
 			while (itAgents.hasNext()) {
 				agent = itAgents.next();
-				
+				// Etre Vivant
 				if (agent instanceof EtreVivant) {
 					EtreVivant ev = (EtreVivant) agent;
 					if (ev.estEnVie()) {
@@ -103,6 +90,15 @@ public class Simulateur extends Observable {
 							cptRequin++;
 						}
 					}
+				
+				// Avatar
+				} else if (agent instanceof Avatar) {
+					Avatar avatar = (Avatar) agent;
+					if(!avatar.getAEteAttrape()) {
+						agent.interagir();
+					}
+					
+				// Autres...
 				} else {
 					agent.interagir();
 				}
@@ -123,26 +119,24 @@ public class Simulateur extends Observable {
 	}
 	
 	public void ajouterAgent(Agent agent) {
-		if (agent instanceof Avatar) {
-			if(this.dejaAvatar) {
-				return ;
-			} else {
-				this.dejaAvatar = true;
-			}
-		}
 		agentsAAjouter.add(agent);
 		environnement.mettreElementEnvironnement(agent);
 	}
 	
 	public void supprimerAgent(Agent agent) {
-		if (agent instanceof Avatar) {
-			this.dejaAvatar = false;
-		}
 		agentsASupprimer.add(agent);
 		environnement.enleverElementEnvironnement(agent);
 	}
 	
 	public boolean arreterSimulation(){
 		return continuer = false;
+	}
+	
+	public VueSimulateur getVueSimulateur() {
+		return vueSimulateur;
+	}
+	
+	public int getCptTour() {
+		return cptTour;
 	}
 }

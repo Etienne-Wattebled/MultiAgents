@@ -1,6 +1,7 @@
 package modeles.environnements.elements.agents;
 
 import modeles.environnements.Environnement;
+import modeles.environnements.elements.agents.utilitaires.Direction;
 import modeles.simulateurs.Simulateur;
 
 public abstract class EtreVivant extends Agent{

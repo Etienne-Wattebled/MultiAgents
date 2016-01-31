@@ -1,5 +1,6 @@
 package modeles.environnements.elements.agents;
 
+import modeles.environnements.elements.agents.utilitaires.Direction;
 import modeles.simulateurs.Simulateur;
 
 public class Bille extends Agent {

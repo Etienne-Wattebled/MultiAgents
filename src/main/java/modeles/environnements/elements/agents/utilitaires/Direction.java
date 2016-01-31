@@ -1,4 +1,4 @@
-package modeles.environnements.elements.agents;
+package modeles.environnements.elements.agents.utilitaires;
 
 public enum Direction {
 	NORD,
@@ -89,5 +89,35 @@ public enum Direction {
 			tab[0] = tab[0]+1;
 		}
 		return tab;
+	}
+	
+	public static Direction getDirection(int xd, int yd, int xf, int yf) {
+		Direction direction = null;
+		if (xf < xd) {
+			if (yf < yd) {
+				direction = Direction.NORD_OUEST;
+			}
+			else if (yf > yd) {
+				direction = Direction.SUD_OUEST;
+			} else {
+				direction = Direction.OUEST;
+			}
+		} 
+		else if (xf > xd) {
+			if (yf < yd) {
+				direction = Direction.NORD_EST;
+			} else if (yf > yd) {
+				direction = Direction.SUD_EST;
+			} else {
+				direction = Direction.EST;
+			}
+		} else {
+			if (yf < yd) {
+				direction = Direction.NORD;
+			} else if (yf > yd) {
+				direction = Direction.SUD;
+			}
+		}
+		return direction;
 	}
 }
