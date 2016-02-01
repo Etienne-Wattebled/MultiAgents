@@ -9,6 +9,9 @@ import modeles.environnements.elements.agents.utilitaires.TableauDistancesAgent;
 import modeles.simulateurs.Simulateur;
 
 public class Chasseur extends Agent{
+	
+	// Direction non utilisée
+	
 	protected TableauDistancesAgent tableauDistancesAvatar;
 	
 	public Chasseur(Simulateur simulateur, int posX, int posY, Direction direction, TableauDistancesAgent tableauDistancesAvatar) {
@@ -33,10 +36,8 @@ public class Chasseur extends Agent{
 				}
 			}
 			tableauDistancesAvatar.mettreAJour();
-			int tab[] = tableauDistancesAvatar.getDirectionVersAgent(posX,posY);
+			int tab[] = tableauDistancesAvatar.getProchainesCoordonneesVersAgent(posX,posY);
 			seDeplacer(tab[0],tab[1]);
 		}
 	}
-
-
 }

@@ -70,11 +70,11 @@ public class TableauDistancesAgent {
 		}
 	}
 	
-	public int[] getDirectionVersAgent(int x, int y) {
-		int xf=0, yf=0;
+	public int[] getProchainesCoordonneesVersAgent(int x, int y) {
+		Case vMin = new Case(-1,-1,Integer.MAX_VALUE);
+		
 		if (environnement != null) {
 			int i,j;
-			Case vMin = new Case(-1,-1,Integer.MAX_VALUE);
 			int xp=0, yp=0;
 			for (j = -1;j<=1;j++) {
 				for (i =-1;i<=1;i++) {
@@ -86,15 +86,11 @@ public class TableauDistancesAgent {
 					}
 					if ((environnement.existeCase(xp, yp) && (grilleDistances[xp][yp] != null) && grilleDistances[xp][yp].getValeur() < vMin.getValeur())) {
 						vMin = grilleDistances[xp][yp];
-						xf = xp;
-						yf = yp;
 					}
 				}
 			}
-		}
-		// Portée de 1 donc chemin le plus court.
-		//return Direction.getDirection(x,y,xf,yf);
-		return new int[] {xf,yf};
+		} 
+		return new int[] {vMin.getX(),vMin.getY()};
 	}
 	
 	private class Case {
