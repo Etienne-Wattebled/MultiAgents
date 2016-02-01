@@ -33,8 +33,8 @@ public class Chasseur extends Agent{
 				}
 			}
 			tableauDistancesAvatar.mettreAJour();
-			direction = tableauDistancesAvatar.getDirectionVersAgent(posX,posY);
-			seDeplacer();
+			int tab[] = tableauDistancesAvatar.getDirectionVersAgent(posX,posY);
+			seDeplacer(tab[0],tab[1]);
 		}
 	}
 

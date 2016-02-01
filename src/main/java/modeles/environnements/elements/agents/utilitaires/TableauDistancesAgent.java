@@ -70,7 +70,7 @@ public class TableauDistancesAgent {
 		}
 	}
 	
-	public Direction getDirectionVersAgent(int x, int y) {
+	public int[] getDirectionVersAgent(int x, int y) {
 		int xf=0, yf=0;
 		if (environnement != null) {
 			int i,j;
@@ -93,7 +93,8 @@ public class TableauDistancesAgent {
 			}
 		}
 		// Portée de 1 donc chemin le plus court.
-		return Direction.getDirection(x,y,xf,yf);
+		//return Direction.getDirection(x,y,xf,yf);
+		return new int[] {xf,yf};
 	}
 	
 	private class Case {
