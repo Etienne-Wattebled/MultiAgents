@@ -3,6 +3,7 @@ package modeles.environnements.elements.agents.utilitaires;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Queue;
 
 import modeles.environnements.Environnement;
 import modeles.environnements.elements.agents.Agent;
@@ -37,32 +38,19 @@ public class TableauDistancesAgent {
 	public void mettreAJour() {
 		resetGrilleDistances();
 		if ((environnement != null) && (agent != null)) {
-			int x = agent.getPosX();
-			int y = agent.getPosY();
+			Queue<Case> cases = new LinkedList<Case>();
+			ajouterEtNumeroterVoisins(agent.getPosX(),agent.getPosY(),1,cases);
 			
-			List<Case> cases = getCasesLibresNonNumeroteesAuxAlentoursEtNumeroterVoisins(x,y,1);
-			List<Case> cases2 = new LinkedList<Case>();
-			boolean continuer = true;
-			
-			ListIterator<Case> it = null;
 			Case c = null;
-			
-			while (continuer) {
-				it = cases.listIterator();
-				while (it.hasNext()) {
-					c = it.next();
-					it.remove();
-					cases2.addAll(getCasesLibresNonNumeroteesAuxAlentoursEtNumeroterVoisins(c.getX(),c.getY(),c.getValeur()+1));
-				}
-				cases.addAll(cases2);
-				cases2.clear();
-				continuer = !cases.isEmpty();
+			while (!cases.isEmpty()) {
+				c = cases.poll();
+				ajouterEtNumeroterVoisins(c.getX(),c.getY(),c.getValeur()+1,cases);
 			}
 		}
 	}
+
 	
-	private List<Case> getCasesLibresNonNumeroteesAuxAlentoursEtNumeroterVoisins(int x, int y, int valeurVoisins) {
-		LinkedList<Case> list = new LinkedList<Case>();
+	private void ajouterEtNumeroterVoisins(int x, int y, int valeurVoisins, Queue<Case> cases) {
 		if (environnement != null) {
 			int xp, yp;
 			for (int j=-1;j<=1;j++) {
@@ -73,18 +61,13 @@ public class TableauDistancesAgent {
 						xp = environnement.getX(xp);
 						yp = environnement.getY(yp);
 					}
-					if (environnement.existeCase(xp, yp)) {
-						if (grilleDistances[xp][yp] == null) {
-							if (!environnement.aUnObstacle(xp, yp)) {
-								grilleDistances[xp][yp] = new Case(xp,yp,valeurVoisins);
-								list.add(grilleDistances[xp][yp]);
-							}
-						}
+					if ((environnement.existeCase(xp, yp)) && (grilleDistances[xp][yp] == null) && (!environnement.aUnObstacle(xp, yp))) {
+						grilleDistances[xp][yp] = new Case(xp,yp,valeurVoisins);
+						cases.add(grilleDistances[xp][yp]);
 					}
 				}	
 			}
 		}
-		return list;
 	}
 	
 	public Direction getDirectionVersAgent(int x, int y) {
@@ -126,14 +109,5 @@ public class TableauDistancesAgent {
 		public int getX() { return x; }
 		public int getY() {	return y;}
 		public int getValeur() { return valeur; }
-		public void setX(int x) {
-			this.x = x;
-		}
-		public void setY(int y) {
-			this.y = x;
-		}
-		public void setValeur(int valeur) {
-			this.valeur = valeur;
-		}
 	}
 }
