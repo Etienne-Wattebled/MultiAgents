@@ -90,7 +90,15 @@ public enum Direction {
 		}
 		return tab;
 	}
-	
+	/**
+	 * Retourne la direction à suivre
+	 * Ne donne pas le chemin le plus court (sauf portée de 1)
+	 * @param xd
+	 * @param yd
+	 * @param xf
+	 * @param yf
+	 * @return
+	 */
 	public static Direction getDirection(int xd, int yd, int xf, int yf) {
 		Direction direction = null;
 		if (xf < xd) {

@@ -32,10 +32,7 @@ public class Chasseur extends Agent{
 					return;
 				}
 			}
-			if (simulateur.getCptTour() != tableauDistancesAvatar.getNumToursDerniereMiseAJour()) {
-				tableauDistancesAvatar.mettreAJour();
-				tableauDistancesAvatar.setNumToursDerniereMiseAJour(simulateur.getCptTour());
-			}
+			tableauDistancesAvatar.mettreAJour();
 			direction = tableauDistancesAvatar.getDirectionVersAgent(posX,posY);
 			seDeplacer();
 		}
