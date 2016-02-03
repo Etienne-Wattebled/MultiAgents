@@ -15,6 +15,10 @@ import vues.environnements.VueEnvironnement;
 import vues.environnements.VueMenuEnvironnement;
 
 public class VueSimulateur extends JFrame implements KeyListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private VueEnvironnement vueEnvironnement;
 	private VueMenuEnvironnement vueMenuEnvironnement;
 	
@@ -23,20 +27,20 @@ public class VueSimulateur extends JFrame implements KeyListener{
 	public VueSimulateur(Simulateur simulateur, int tailleCellule, boolean menu) {
 		this.vueEnvironnement = new VueEnvironnement(simulateur.getEnvironnement(),tailleCellule);
 		
-		this.setLayout(new BorderLayout());
-		
 		simulateur.addObserver(vueEnvironnement);
-		this.add(vueEnvironnement,BorderLayout.CENTER);
 		
 		if (menu) {
-			this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur,tailleCellule);
+			this.vueMenuEnvironnement = new VueMenuEnvironnement(simulateur, tailleCellule);
+			this.setLayout(new BorderLayout());
+			this.add(vueEnvironnement,BorderLayout.CENTER);
 			this.add(vueMenuEnvironnement,BorderLayout.SOUTH);
 			this.setSize(
 					vueEnvironnement.getLongueur()+vueMenuEnvironnement.getLongueur(),
 					vueEnvironnement.getHauteur()+vueMenuEnvironnement.getHauteur()
 			);
 		} else {
-			this.setSize(vueEnvironnement.getLongueur(),vueEnvironnement.getHauteur());
+			this.setContentPane(vueEnvironnement);
+			this.setSize(vueEnvironnement.getLongueur()+50,vueEnvironnement.getHauteur()+50);
 		}
 		
 		
