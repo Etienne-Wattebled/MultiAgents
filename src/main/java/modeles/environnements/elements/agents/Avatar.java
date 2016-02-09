@@ -7,8 +7,8 @@ import modeles.simulateurs.Simulateur;
 public class Avatar extends Agent{
 	protected boolean aEteAttrape;
 	
-	public Avatar(Simulateur simulateur, int posX, int posY, Direction direction) {
-		super(simulateur,posX,posY,direction);
+	public Avatar(Simulateur simulateur, int posX, int posY, int ralentissement) {
+		super(simulateur, posX, posY,ralentissement);
 		this.aEteAttrape = false;
 	}
 	public Avatar(Simulateur s) {
@@ -17,13 +17,15 @@ public class Avatar extends Agent{
 	}
 	
 	public void interagir(){
-		VueSimulateur vueSimulateur = simulateur.getVueSimulateur();
-		if (vueSimulateur == null) {
-			direction = Direction.getRandomDirection();
-		} else {
-			direction = vueSimulateur.getDirectionClavier();
+		if (peutInteragir()) {
+			VueSimulateur vueSimulateur = simulateur.getVueSimulateur();
+			if (vueSimulateur == null) {
+				direction = Direction.getRandomDirection();
+			} else {
+				direction = vueSimulateur.getDirectionClavier();
+			}
+			seDeplacer();
 		}
-		seDeplacer();
 	}
 	public boolean getAEteAttrape() {
 		return aEteAttrape;

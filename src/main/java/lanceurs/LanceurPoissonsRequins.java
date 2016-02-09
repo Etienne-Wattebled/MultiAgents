@@ -12,7 +12,8 @@ public class LanceurPoissonsRequins {
 					new Poisson(
 							s, // simulateur
 							20, // délais maturité
-							8 // délais entre deux naissances
+							8, // délais entre deux naissances
+							0 // ralentissement
 					)
 			);
 		}
@@ -22,7 +23,8 @@ public class LanceurPoissonsRequins {
 							s, // simulateur
 							50, // délais maturité
 							15, // délais entre deux naissances
-							30 // délais mort sans manger
+							30, // délais mort sans manger
+							0 // ralentissement
 					)
 			);
 		}

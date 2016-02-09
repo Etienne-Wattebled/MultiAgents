@@ -8,13 +8,19 @@ import modeles.simulateurs.Simulateur;
 public abstract class Agent extends ElementEnvironnement {
 	protected Direction direction;
 	protected Simulateur simulateur;
+	// Un tour sur ralentissement
+	protected int ralentissement;
+	// Nombre de fois où la méthode peutInteragir a été appelée (normalement = nombre de fois où la méthode interagir a été appelée)
+	protected int nbTours;
 	
-	public Agent(Simulateur simulateur, int posX, int posY, Direction direction) {
+	public Agent(Simulateur simulateur, int posX, int posY, int ralentissement) {
 		super(posX,posY);
-		this.direction = direction;
-		this.simulateur = simulateur;
 		this.direction = Direction.getRandomDirection();
+		this.simulateur = simulateur;
+		this.ralentissement = ralentissement;
+		this.nbTours = 0;
 	}
+	
 	/**
 	 * Crée un agent avec une direction aléatoire
 	 * @param posX
@@ -22,7 +28,12 @@ public abstract class Agent extends ElementEnvironnement {
 	 * @param environnement
 	 */
 	public Agent(Simulateur simulateur, int posX, int posY) {
-		this(simulateur,posX, posY, Direction.getRandomDirection());
+		this(simulateur,posX, posY,0);
+	}
+	
+	public Agent(Simulateur simulateur,  int ralentissement) {
+		this(simulateur);
+		this.ralentissement = ralentissement;
 	}
 	
 	/**
@@ -58,6 +69,14 @@ public abstract class Agent extends ElementEnvironnement {
 	public void setDirection(Direction direction) {	this.direction = direction; }
 	public void setDirection() { this.direction = Direction.getRandomDirection(); }
 		
+	/**
+	 * Éviter d'utiliser cette fonction.
+	 * N'utiliser qu'en cas de force majeure (pour des IA etc..)
+	 * Raison: ne met pas à jour la direction.
+	 * @param x
+	 * @param y
+	 */
+	@Deprecated
 	public void seDeplacer(int x, int y) {
 		Environnement environnement = simulateur.getEnvironnement();
 		if (environnement != null) {
@@ -69,7 +88,10 @@ public abstract class Agent extends ElementEnvironnement {
 			environnement.mettreElementEnvironnement(this);
 		}
 	}
-	
+	/**
+	 * Fonction qui permet de se déplacer dans la direction qui est valorisée en attribut.
+	 * Si pas possible, changement de direction automatiquement comme si c'était un rebond de bille.
+	 */
 	public void seDeplacer() {
 		int tab[] = Direction.calculerNouvellesCoordonnees(getDirection(),getPosX(),getPosY());
 		int xF = tab[0], yF = tab[1], i = 0;
@@ -86,6 +108,20 @@ public abstract class Agent extends ElementEnvironnement {
 			seDeplacer(xF,yF);
 		}
 	}
-	
+	/**
+	 * Attention. N'utiliser cette méthode qu'une fois par tour.
+	 * Elle permet de ralentir éventuellement les agents.
+	 * @return true si l'agent peut interagir (par rapport au ralentissement), false sinon. 
+	 */
+	public boolean peutInteragir() {
+		this.nbTours = this.nbTours +1;
+		if (ralentissement <= 0) {
+			return true;
+		}
+		return (nbTours % ralentissement == 0);
+	}
+	/**
+	 * Méthode appelée par les Simulateurs
+	 */
 	abstract public void interagir();
 }

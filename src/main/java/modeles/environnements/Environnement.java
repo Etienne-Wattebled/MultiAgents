@@ -49,6 +49,7 @@ public class Environnement {
 		if (xTorique >= 0) {  return xTorique%nbColonnes; }
 		else { return nbColonnes - Math.abs(xTorique); }
 	}
+	
 	public int getY(int yTorique) {
 		if (yTorique >= 0) { return yTorique%nbLignes; }
 		else { return nbLignes - Math.abs(yTorique); }
@@ -119,7 +120,7 @@ public class Environnement {
 		return false;
 	}
 	/**
-	 * Retourne les coordonnées d'une seule case libre si elle existe
+	 * Retourne les coordonnées d'une seule case libre autour du point (x,y) s'il en existe une
 	 * @param x coordonnée x du point dont on doit chercher autour
 	 * @param y coordonnée y du point dont on doit chercher autour
 	 * @return

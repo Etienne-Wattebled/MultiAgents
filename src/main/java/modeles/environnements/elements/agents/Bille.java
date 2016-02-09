@@ -1,20 +1,18 @@
 package modeles.environnements.elements.agents;
 
-import modeles.environnements.elements.agents.utilitaires.Direction;
 import modeles.simulateurs.Simulateur;
 
 public class Bille extends Agent {
-	public Bille(Simulateur simulateur, int posX, int posY, Direction direction) {
-		super(simulateur,posX,posY,direction);
-	}
-	public Bille(Simulateur simulateur, Direction direction) {
-		this(simulateur,(int)(simulateur.getEnvironnement().getNbColonnes()*Math.random()),(int)(simulateur.getEnvironnement().getNbLignes()*Math.random()),direction);
-	}
 	public Bille(Simulateur simulateur) {
 		super(simulateur);
 	}
+	public Bille(Simulateur simulateur, int ralentissement) {
+		super(simulateur,ralentissement);
+	}
 	
 	public void interagir() {
-		seDeplacer();
-	}
+		if (peutInteragir()) {
+			seDeplacer();
+		}
+	}	
 }

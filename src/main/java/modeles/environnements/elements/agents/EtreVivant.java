@@ -18,12 +18,19 @@ public abstract class EtreVivant extends Agent{
 	protected int nbToursAvantMortFaimInitial;
 	
 	public EtreVivant(Simulateur simulateur, int posX, int posY, int nbToursAvantMortFaim, int nbToursAvantMaturite, int nbToursEntreDeuxNaissances){
-		super(simulateur,posX,posY);
-		initialiser(nbToursAvantMortFaim,nbToursAvantMaturite,nbToursEntreDeuxNaissances);
-		
+		this(simulateur,posX,posY,nbToursAvantMortFaim,nbToursAvantMaturite,nbToursEntreDeuxNaissances,0);
 	}
+	public EtreVivant(Simulateur simulateur, int posX, int posY, int nbToursAvantMortFaim, int nbToursAvantMaturite, int nbToursEntreDeuxNaissances,int ralentissement){
+		super(simulateur,posX ,posY,ralentissement);
+		initialiser(nbToursAvantMortFaim,nbToursAvantMaturite,nbToursEntreDeuxNaissances);
+	}
+	
 	public EtreVivant(Simulateur simulateur, int nbToursAvantMortFaim, int nbToursAvantMaturite,int nbToursEntreDeuxNaissances) {
-		super(simulateur);
+		this(simulateur,nbToursAvantMortFaim,nbToursAvantMaturite,nbToursEntreDeuxNaissances,0);
+	}
+	
+	public EtreVivant(Simulateur simulateur, int nbToursAvantMortFaim, int nbToursAvantMaturite,int nbToursEntreDeuxNaissances, int ralentissement) {
+		super(simulateur, ralentissement);
 		initialiser(nbToursAvantMortFaim,nbToursAvantMaturite,nbToursEntreDeuxNaissances);
 	}
 	
@@ -45,8 +52,17 @@ public abstract class EtreVivant extends Agent{
 	/**
 	 * Retourne vrai si l'être vivant peut se reproduire (tient compte de l'environnement)
 	 * @return true si l'être vivant peut se reproduire
+	 * Met aussi à jour les variables de reproduction (décrémentation pour les délais)
 	 */
 	public boolean peutSeReproduire() {
+		// Mise à jour des nbTours concernant la reproduction.
+		if ((nbToursAvantMaturite <= 0) && (nbToursEntreDeuxNaissances > 0)) {
+			nbToursEntreDeuxNaissances = nbToursEntreDeuxNaissances - 1;
+		}
+		if (nbToursAvantMaturite > 0) {
+			nbToursAvantMaturite = nbToursAvantMaturite - 1;
+		}
+		// Retour du résultat
 		if ((nbToursAvantMaturite != 0) || (nbToursEntreDeuxNaissances != 0)) {
 			return false;
 		}
@@ -57,12 +73,12 @@ public abstract class EtreVivant extends Agent{
 		int tab[] = environnement.getCaseLibreAuxAlentours(posX,posY);
 		return (tab != null);
 	}
-	
-	public void mettreAJourLesNbTours() {
-		if ((nbToursAvantMaturite <= 0) && (nbToursEntreDeuxNaissances > 0)) {
-			nbToursEntreDeuxNaissances = nbToursEntreDeuxNaissances - 1;
-		}
-		
+	/**
+	 * Se déplace dans une direction aléatoire pendant un certain temps puis changer de direction...
+	 * Si un obstacle est détecté, changement de direction.
+	 */
+	public void seDeplacer() {
+		// Mise à jour des nbTours concernant la direction
 		if (nbToursConserverDirection <= 0) {
 			this.direction = Direction.getRandomDirection();
 			this.nbToursConserverDirection = 15 + (int)(Math.random()*7);
@@ -70,34 +86,36 @@ public abstract class EtreVivant extends Agent{
 		if (nbToursConserverDirection > 0) {
 			nbToursConserverDirection = nbToursConserverDirection - 1;
 		}
-		
-		if (nbToursAvantMaturite > 0) {
-			nbToursAvantMaturite = nbToursAvantMaturite - 1;
-		}
+		// Déplacement
+		super.seDeplacer();
+	}
 	
+	public boolean peutMourirFaim() {
 		if (nbToursAvantMortFaim > 0) {
 			nbToursAvantMortFaim = nbToursAvantMortFaim -1;
 		}
+		return (nbToursAvantMortFaim <= 0);
 	}
 	
 	public boolean estMature() {
 		return nbToursAvantMaturite <= 0;
 	}
 	
-	public void resetNbToursEntreDeuxNaissances() {
+	public void sePreparerPourAutreNaissance() {
 		nbToursEntreDeuxNaissances = nbToursEntreDeuxNaissancesInitial;
 	}
-	public void resetNbToursAvantMortFaim() {
+	public void manger(EtreVivant etreVivant) {
+		etreVivant.mourir();
 		nbToursAvantMortFaim = nbToursAvantMortFaimInitial;
-	}
-	public void resetNbToursAvantMaturite() {
-		nbToursAvantMaturite = nbToursAvantMaturiteInitial;
 	}
 	
 	public boolean estEnVie() {
 		return enVie;
 	}
-	public void setEnVie(boolean a) {
-		this.enVie = a;
+	public void mourir() {
+		this.enVie = false;
+		if (simulateur != null) {
+			simulateur.supprimerAgent(this);
+		}
 	}
 }
