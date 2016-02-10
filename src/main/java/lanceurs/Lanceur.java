@@ -90,7 +90,7 @@ public class Lanceur {
 			System.out.println("Bille <nombre> <ralentissement>");
 			System.out.println("Avatar <ralentissement>");
 			System.out.println("Chasseur <nombre> <ralentissement>");
-			System.out.println("Poisson <nombre> <nbToursAvantMaturite> <nbToursEntreDeuxNaissance> <ralentissement>");
+			System.out.println("Poisson <nombre> <nbToursAvantMaturite> <nbToursEntreDeuxNaissances> <ralentissement>");
 			System.out.println("Requin <nombre> <nbToursAvantMaturite> <nbToursEntreDeuxNaissances> <nbToursAvantMortFaim> <ralentissement>");
 		}
 	}
