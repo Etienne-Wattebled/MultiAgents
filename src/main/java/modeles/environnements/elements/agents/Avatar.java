@@ -11,6 +11,11 @@ public class Avatar extends Agent{
 		super(simulateur, posX, posY,ralentissement);
 		this.aEteAttrape = false;
 	}
+	public Avatar(Simulateur simulateur, int ralentissement) {
+		super(simulateur, ralentissement);
+		this.aEteAttrape = false;
+	}
+	
 	public Avatar(Simulateur s) {
 		super(s);
 		this.aEteAttrape = false;
